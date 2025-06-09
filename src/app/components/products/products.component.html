@@ -1,0 +1,82 @@
+<!-- <img width="400" height="400" src="assets/images/imagess.jpeg" alt="Sample Image"/> -->
+ <h1>Selected Catagory Id = {{selectedCategoryId}}</h1>
+<div class="mb-3">
+  <label for="" class="form-label">Categories</label>
+  <select [(ngModel)]="selectedCategoryId"
+    class="form-select form-select-lg"
+    name=""
+    id=""
+  >
+    <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+  </select>
+</div>
+
+<p>Total Price : {{totalOrderPrice}} </p>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+ @for (product of products; track product.id; let i = $index ){
+  @if(product.stock != 0){
+    <div class="col">
+      <div class="card" [class.d-none]="product.catId != selectedCategoryId && selectedCategoryId !=0"
+                        [style.background-color]="product.stock<=2?'orange':'white'">
+        <img height="200" [src]="product.imgUrl" class="card-img-top" alt="...">
+        <div class="card-body" >
+          <h5 class="card-title" [ngStyle]="{border:product.stock <=1?'5px solid red':'5px solid blue'}">{{product.name}}</h5>
+          <p class="card-text">Price : {{product.price}}</p>
+          @if(product.stock!=1){
+            <p class="card-text">Quantity : {{product.stock}}</p>      
+          }
+          @else{
+
+            <p>Quantity : Last Item</p>
+          }
+          <div [ngClass]="(product.stock ==1)?'text-danger':''">       
+          @switch (product.stock) {
+            @case(1){
+              <p>Quantity : Last Item</p>
+            }
+            @case(1){
+              <p>Quantity : Last Two Items</p>
+            }
+            @default{
+              <p>Quantity : {{product.stock}}</p>
+            }        
+          }
+        </div>
+          
+          <div class="d-flex gap-2">
+            <input type="number" #quantity  min="1" [max]="product.stock" 
+            (change)="purchasedQuantity = purchasedQuantity < 0 ? 0 : purchasedQuantity">
+            <button class="btn btn-success" (click)="buy(quantity.value, product,quantity)">Buy</button>
+          </div>
+        </div>
+      </div>
+    </div>  
+  }
+ }
+  
+</div>
+
+<!-- binding types
+1-interpolation
+    <h5  *ngFor="let product of products">     
+      {{product.name}}</h5>
+    <img *ngFor="let product of products" src=
+      {{ product.imgUr}}/>
+
+2-Property binding
+    <img *ngFor="let product of products" [src]="product.imgUrl"/>   
+
+3-Event binding
+    <input type="number" #quantity >
+    <button *ngFor="let product of products" 
+    (click)="buy(quantity.value,product.price)">Buy</button>
+
+4-Two way binding
+    <select [(ngModel)]="selectedCategoryId">
+    this requires a variable to be declared in the Typescript file
+
+5-Class binding
+    <div *ngFor="let product of products" [class.d-none]="product.catId != selectedCategoryId"></div>
+
+6-Style binding
+    <div *ngFor="let product of products" [style.background-color]="product.quantity===0?'red':'blue'"  > -->

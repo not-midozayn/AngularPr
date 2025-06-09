@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>enhanced_angular_cheat_sheet.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+<link rel="stylesheet" href="file:///c%3A//Users//midozen//Desktop//Javascript%20Methods//style.css" type="text/css">
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///c%3A//Users//midozen//Desktop//Javascript%20Methods//style.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="angular-comprehensive-cheat-sheet-with-explanations">Angular Comprehensive Cheat Sheet with Explanations</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#angular-cli">Angular CLI</a></li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#components">Components</a></li>
+<li><a href="#templates--data-binding">Templates &amp; Data Binding</a></li>
+<li><a href="#directives">Directives</a></li>
+<li><a href="#services--dependency-injection">Services &amp; Dependency Injection</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#forms">Forms</a></li>
+<li><a href="#http-client">HTTP Client</a></li>
+<li><a href="#observables--rxjs">Observables &amp; RxJS</a></li>
+<li><a href="#pipes">Pipes</a></li>
+<li><a href="#lifecycle-hooks">Lifecycle Hooks</a></li>
+<li><a href="#modules">Modules</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#performance--optimization">Performance &amp; Optimization</a></li>
+</ol>
+<hr>
+<h2 id="angular-cli">Angular CLI</h2>
+<p><strong>What it is:</strong> Angular CLI is a command-line interface tool that helps you initialize, develop, scaffold, and maintain Angular applications. It automates many repetitive tasks and follows Angular best practices.</p>
+<h3 id="installation">Installation</h3>
+<pre class="hljs"><code><div>npm install -g @angular/cli
+</div></code></pre>
+<h3 id="common-commands">Common Commands</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Create new project</span>
+ng new my-app
+ng new my-app --routing --style=scss
+
+<span class="hljs-comment"># Generate components, services, etc.</span>
+ng generate component my-component
+ng g c my-component --skip-tests
+ng g service my-service
+ng g module my-module --routing
+ng g directive my-directive
+ng g pipe my-pipe
+ng g guard my-guard
+ng g interface my-interface
+ng g class my-class
+
+<span class="hljs-comment"># Build &amp; Serve</span>
+ng serve                    <span class="hljs-comment"># Development server</span>
+ng serve --open            <span class="hljs-comment"># Open browser automatically</span>
+ng serve --port 4200       <span class="hljs-comment"># Custom port</span>
+ng build                   <span class="hljs-comment"># Production build</span>
+ng build --prod            <span class="hljs-comment"># Optimized production build</span>
+ng <span class="hljs-built_in">test</span>                    <span class="hljs-comment"># Run unit tests</span>
+ng e2e                     <span class="hljs-comment"># Run end-to-end tests</span>
+
+<span class="hljs-comment"># Add packages</span>
+ng add @angular/material
+ng add @angular/pwa
+
+<span class="hljs-comment"># Update</span>
+ng update
+ng update @angular/core @angular/cli
+</div></code></pre>
+<p><strong>How it works:</strong> The CLI uses schematics (code generation templates) to create consistent file structures and boilerplate code. When you run <code>ng generate</code>, it creates files following Angular conventions and automatically updates module imports.</p>
+<hr>
+<h2 id="project-structure">Project Structure</h2>
+<p><strong>What it is:</strong> Angular follows a specific folder structure that organizes your application into logical modules and components. This structure promotes maintainability and scalability.</p>
+<pre class="hljs"><code><div>src/
+├── app/
+│   ├── components/        # Reusable UI components
+│   ├── services/         # Business logic and data services
+│   ├── models/          # TypeScript interfaces and classes
+│   ├── guards/          # Route protection logic
+│   ├── pipes/           # Data transformation functions
+│   ├── app.component.ts  # Root component
+│   ├── app.component.html
+│   ├── app.component.scss
+│   ├── app.module.ts     # Root module - bootstraps the app
+│   └── app-routing.module.ts # Main routing configuration
+├── assets/              # Static files (images, fonts, etc.)
+├── environments/        # Environment-specific configurations
+├── index.html          # Main HTML file
+├── main.ts            # Application entry point
+├── styles.scss        # Global styles
+└── polyfills.ts       # Browser compatibility shims
+</div></code></pre>
+<p><strong>How it works:</strong> Angular uses a hierarchical structure where the root module (<code>app.module.ts</code>) bootstraps the entire application. Components are organized into feature modules, and services provide shared functionality across the app.</p>
+<hr>
+<h2 id="components">Components</h2>
+<p><strong>What it is:</strong> Components are the building blocks of Angular applications. Each component controls a part of the screen (called a view) and contains the logic to support that view.</p>
+<h3 id="component-decorator">Component Decorator</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Component, Input, Output, EventEmitter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+
+<span class="hljs-meta">@Component</span>({
+  selector: <span class="hljs-string">'app-my-component'</span>,        <span class="hljs-comment">// HTML tag name</span>
+  templateUrl: <span class="hljs-string">'./my-component.component.html'</span>,  <span class="hljs-comment">// External template</span>
+  styleUrls: [<span class="hljs-string">'./my-component.component.scss'</span>],  <span class="hljs-comment">// Component-specific styles</span>
+  <span class="hljs-comment">// Or inline</span>
+  template: <span class="hljs-string">`&lt;h1&gt;{{title}}&lt;/h1&gt;`</span>,     <span class="hljs-comment">// Inline template</span>
+  styles: [<span class="hljs-string">`h1 { color: red; }`</span>]      <span class="hljs-comment">// Inline styles</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MyComponent {
+  title = <span class="hljs-string">'Hello World'</span>;
+  
+  <span class="hljs-comment">// Input property - receives data from parent</span>
+  <span class="hljs-meta">@Input</span>() data: <span class="hljs-built_in">string</span> = <span class="hljs-string">''</span>;
+  
+  <span class="hljs-comment">// Output event - sends data to parent</span>
+  <span class="hljs-meta">@Output</span>() dataChange = <span class="hljs-keyword">new</span> EventEmitter&lt;<span class="hljs-built_in">string</span>&gt;();
+  
+  <span class="hljs-comment">// Methods</span>
+  onClick() {
+    <span class="hljs-keyword">this</span>.dataChange.emit(<span class="hljs-string">'new value'</span>);
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> The <code>@Component</code> decorator tells Angular that this class is a component. The selector defines the HTML tag, template defines the view, and the class contains the component logic. Angular creates instances of components and manages their lifecycle.</p>
+<h3 id="component-communication">Component Communication</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Parent to Child - Input</span>
+<span class="hljs-meta">@Input</span>() parentData: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Child receives data from parent</span>
+
+<span class="hljs-comment">// Child to Parent - Output</span>
+<span class="hljs-meta">@Output</span>() childEvent = <span class="hljs-keyword">new</span> EventEmitter&lt;<span class="hljs-built_in">any</span>&gt;(); <span class="hljs-comment">// Child sends events to parent</span>
+
+<span class="hljs-comment">// ViewChild - Access child component</span>
+<span class="hljs-meta">@ViewChild</span>(ChildComponent) child!: ChildComponent; <span class="hljs-comment">// Parent can call child methods</span>
+
+<span class="hljs-comment">// ContentChild - Access projected content</span>
+<span class="hljs-meta">@ContentChild</span>(SomeDirective) content!: SomeDirective; <span class="hljs-comment">// Access content passed via ng-content</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Angular uses a unidirectional data flow. Data flows down through <code>@Input()</code> properties, and events flow up through <code>@Output()</code> EventEmitters. <code>@ViewChild</code> and <code>@ContentChild</code> provide direct access to child components or projected content.</p>
+<hr>
+<h2 id="templates--data-binding">Templates &amp; Data Binding</h2>
+<p><strong>What it is:</strong> Templates are HTML with Angular markup that define how components should be rendered. Data binding connects the component's data and methods to the template.</p>
+<h3 id="interpolation">Interpolation</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>               <span class="hljs-comment">&lt;!-- String interpolation --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{user.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>             <span class="hljs-comment">&lt;!-- Object property --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{{getTotal()}}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>        <span class="hljs-comment">&lt;!-- Method call --&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Interpolation (<code>{{ }}</code>) evaluates expressions and converts them to strings. Angular updates the DOM automatically when the underlying data changes.</p>
+<h3 id="property-binding">Property Binding</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">img</span> [<span class="hljs-attr">src</span>]=<span class="hljs-string">"imageUrl"</span> [<span class="hljs-attr">alt</span>]=<span class="hljs-string">"imageAlt"</span>&gt;</span>          <span class="hljs-comment">&lt;!-- Attribute binding --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> [<span class="hljs-attr">disabled</span>]=<span class="hljs-string">"isDisabled"</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span> <span class="hljs-comment">&lt;!-- Property binding --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> [<span class="hljs-attr">class.active</span>]=<span class="hljs-string">"isActive"</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>     <span class="hljs-comment">&lt;!-- CSS class binding --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> [<span class="hljs-attr">style.color</span>]=<span class="hljs-string">"textColor"</span>&gt;</span>Colored text<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> <span class="hljs-comment">&lt;!-- Style binding --&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Property binding (<code>[property]=&quot;expression&quot;</code>) sets element properties dynamically. Angular evaluates the expression and updates the property when the expression's value changes.</p>
+<h3 id="event-binding">Event Binding</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"onClick()"</span>&gt;</span>Click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>                    <span class="hljs-comment">&lt;!-- Click event --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> (<span class="hljs-attr">input</span>)=<span class="hljs-string">"onInput($event)"</span> (<span class="hljs-attr">keyup.enter</span>)=<span class="hljs-string">"onEnter()"</span>&gt;</span>  <span class="hljs-comment">&lt;!-- Input events --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">form</span> (<span class="hljs-attr">submit</span>)=<span class="hljs-string">"onSubmit($event)"</span>&gt;</span>                           <span class="hljs-comment">&lt;!-- Form submission --&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Event binding (<code>(event)=&quot;handler()&quot;</code>) listens to DOM events and calls component methods. The <code>$event</code> object contains information about the event.</p>
+<h3 id="two-way-binding">Two-Way Binding</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">input</span> [(<span class="hljs-attr">ngModel</span>)]=<span class="hljs-string">"username"</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- Equivalent to: --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> [<span class="hljs-attr">ngModel</span>]=<span class="hljs-string">"username"</span> (<span class="hljs-attr">ngModelChange</span>)=<span class="hljs-string">"username = $event"</span>&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Two-way binding (<code>[(ngModel)]</code>) combines property binding and event binding. It updates the property when the input changes and updates the input when the property changes.</p>
+<h3 id="template-reference-variables">Template Reference Variables</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">input</span> #<span class="hljs-attr">nameInput</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>                    <span class="hljs-comment">&lt;!-- Template reference --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"onClick(nameInput.value)"</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>  <span class="hljs-comment">&lt;!-- Use reference --&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Template reference variables (<code>#variableName</code>) create a reference to DOM elements or Angular components that can be used elsewhere in the template.</p>
+<hr>
+<h2 id="directives">Directives</h2>
+<p><strong>What it is:</strong> Directives are classes that add additional behavior to elements in Angular templates. There are three types: components (directives with templates), structural directives (change DOM layout), and attribute directives (change element appearance/behavior).</p>
+<h3 id="structural-directives-legacy-syntax">Structural Directives (Legacy Syntax)</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- *ngIf - Conditionally includes/excludes element --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> *<span class="hljs-attr">ngIf</span>=<span class="hljs-string">"isVisible"</span>&gt;</span>Visible content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> *<span class="hljs-attr">ngIf</span>=<span class="hljs-string">"user; else noUser"</span>&gt;</span>Welcome {{user.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ng-template</span> #<span class="hljs-attr">noUser</span>&gt;</span>Please log in<span class="hljs-tag">&lt;/<span class="hljs-name">ng-template</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- *ngFor - Repeats element for each item --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">li</span> *<span class="hljs-attr">ngFor</span>=<span class="hljs-string">"let item of items; let i = index; let first = first"</span>&gt;</span>
+  {{i}}: {{item.name}}
+<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- *ngSwitch - Switches between multiple views --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> [<span class="hljs-attr">ngSwitch</span>]=<span class="hljs-string">"status"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> *<span class="hljs-attr">ngSwitchCase</span>=<span class="hljs-string">"'loading'"</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> *<span class="hljs-attr">ngSwitchCase</span>=<span class="hljs-string">"'error'"</span>&gt;</span>Error occurred<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> *<span class="hljs-attr">ngSwitchDefault</span>&gt;</span>Default content<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<h3 id="new-control-flow-syntax-angular-17">New Control Flow Syntax (Angular 17+)</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- @if - Conditionally includes/excludes element --&gt;</span>
+@if (isVisible) {
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Visible content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+}
+
+@if (user) {
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Welcome {{user.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+} @else {
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Please log in<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+}
+
+<span class="hljs-comment">&lt;!-- @for - Repeats element for each item --&gt;</span>
+@for (item of items; track item.id) {
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>{{$index}}: {{item.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+} @empty {
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>No items found<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+}
+
+<span class="hljs-comment">&lt;!-- Available variables in @for --&gt;</span>
+@for (item of items; track item.id) {
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+    Index: {{$index}}        <span class="hljs-comment">&lt;!-- Current index --&gt;</span>
+    Count: {{$count}}        <span class="hljs-comment">&lt;!-- Total count --&gt;</span>
+    First: {{$first}}        <span class="hljs-comment">&lt;!-- Is first item --&gt;</span>
+    Last: {{$last}}          <span class="hljs-comment">&lt;!-- Is last item --&gt;</span>
+    Even: {{$even}}          <span class="hljs-comment">&lt;!-- Is even index --&gt;</span>
+    Odd: {{$odd}}            <span class="hljs-comment">&lt;!-- Is odd index --&gt;</span>
+    Item: {{item.name}}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+}
+
+<span class="hljs-comment">&lt;!-- @switch - Switches between multiple views --&gt;</span>
+@switch (status) {
+  @case ('loading') {
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  }
+  @case ('error') {
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Error occurred<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  }
+  @case ('success') {
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Data loaded successfully<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  }
+  @default {
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Default content<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong></p>
+<ul>
+<li><strong>Legacy syntax:</strong> Structural directives modify the DOM structure by adding or removing elements. The asterisk (<code>*</code>) is syntactic sugar that Angular transforms into <code>&lt;ng-template&gt;</code> elements.</li>
+<li><strong>New control flow:</strong> Angular 17+ introduces a new block-based syntax that's more intuitive and performant. The <code>@if</code>, <code>@for</code>, and <code>@switch</code> blocks provide better type safety and developer experience.</li>
+</ul>
+<p><strong>Key differences:</strong></p>
+<ul>
+<li><strong>@for requires track:</strong> Unlike <code>*ngFor</code>, the <code>@for</code> block requires a <code>track</code> expression for better performance</li>
+<li><strong>@empty block:</strong> The <code>@for</code> block supports an optional <code>@empty</code> block for when collections are empty</li>
+<li><strong>Better type safety:</strong> The new syntax provides better TypeScript integration and error checking</li>
+<li><strong>Improved performance:</strong> The new control flow syntax is optimized for better runtime performance</li>
+</ul>
+<h3 id="attribute-directives">Attribute Directives</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- ngClass - Conditionally applies CSS classes --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> [<span class="hljs-attr">ngClass</span>]=<span class="hljs-string">"{'active': isActive, 'disabled': isDisabled}"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> [<span class="hljs-attr">ngClass</span>]=<span class="hljs-string">"cssClasses"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- ngStyle - Conditionally applies inline styles --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> [<span class="hljs-attr">ngStyle</span>]=<span class="hljs-string">"{'color': textColor, 'font-size': fontSize + 'px'}"</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Built-in directives --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">form</span> #<span class="hljs-attr">myForm</span>=<span class="hljs-string">"ngForm"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> [(<span class="hljs-attr">ngModel</span>)]=<span class="hljs-string">"name"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"name"</span> <span class="hljs-attr">required</span>&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Attribute directives change the appearance or behavior of existing elements without changing the DOM structure.</p>
+<h3 id="custom-directive">Custom Directive</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Directive, ElementRef, HostListener, Input } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+
+<span class="hljs-meta">@Directive</span>({
+  selector: <span class="hljs-string">'[appHighlight]'</span>  <span class="hljs-comment">// Attribute selector</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> HighlightDirective {
+  <span class="hljs-meta">@Input</span>() appHighlight = <span class="hljs-string">''</span>; <span class="hljs-comment">// Input property</span>
+
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> el: ElementRef</span>) {} <span class="hljs-comment">// Inject element reference</span>
+
+  <span class="hljs-meta">@HostListener</span>(<span class="hljs-string">'mouseenter'</span>) onMouseEnter() {  <span class="hljs-comment">// Listen to host events</span>
+    <span class="hljs-keyword">this</span>.highlight(<span class="hljs-keyword">this</span>.appHighlight || <span class="hljs-string">'yellow'</span>);
+  }
+
+  <span class="hljs-meta">@HostListener</span>(<span class="hljs-string">'mouseleave'</span>) onMouseLeave() {
+    <span class="hljs-keyword">this</span>.highlight(<span class="hljs-string">''</span>);
+  }
+
+  <span class="hljs-keyword">private</span> highlight(color: <span class="hljs-built_in">string</span>) {
+    <span class="hljs-keyword">this</span>.el.nativeElement.style.backgroundColor = color;
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> Custom directives use the <code>@Directive</code> decorator. <code>ElementRef</code> provides access to the host element, and <code>@HostListener</code> listens to events on the host element.</p>
+<h3 id="migration-notes">Migration Notes</h3>
+<ul>
+<li>Both syntaxes can coexist in the same application during migration</li>
+<li>The new control flow syntax is the recommended approach for new projects</li>
+<li>Existing <code>*ngIf</code>, <code>*ngFor</code>, and <code>*ngSwitch</code> will continue to work but consider migrating for better performance and developer experience</li>
+<li>Angular provides automated migration tools to help convert from the legacy syntax to the new control flow syntax</li>
+</ul>
+<hr>
+<h2 id="services--dependency-injection">Services &amp; Dependency Injection</h2>
+<p><strong>What it is:</strong> Services are classes that encapsulate business logic, data access, or other functionality that can be shared across components. Dependency Injection is Angular's system for providing services to components that need them.</p>
+<h3 id="service-creation">Service Creation</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Injectable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> { HttpClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
+
+<span class="hljs-meta">@Injectable</span>({
+  providedIn: <span class="hljs-string">'root'</span> <span class="hljs-comment">// Makes service a singleton across the entire app</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> DataService {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> http: HttpClient</span>) {} <span class="hljs-comment">// Dependency injection</span>
+
+  getData() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.http.get&lt;<span class="hljs-built_in">any</span>[]&gt;(<span class="hljs-string">'/api/data'</span>);
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> The <code>@Injectable</code> decorator marks a class as available for dependency injection. <code>providedIn: 'root'</code> makes it a singleton. Angular's injector creates and manages service instances.</p>
+<h3 id="injection">Injection</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// In component</span>
+<span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> dataService: DataService</span>) {} <span class="hljs-comment">// Service injected automatically</span>
+
+<span class="hljs-comment">// Multiple injection tokens</span>
+<span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+  <span class="hljs-keyword">private</span> dataService: DataService,
+  <span class="hljs-keyword">private</span> router: Router,
+  <span class="hljs-meta">@Inject</span>(API_URL) <span class="hljs-keyword">private</span> apiUrl: <span class="hljs-built_in">string</span> <span class="hljs-comment">// Custom injection token</span>
+</span>) {}
+</div></code></pre>
+<p><strong>How it works:</strong> Angular's dependency injector analyzes constructor parameters and provides the required services automatically. Custom tokens can be used for configuration values.</p>
+<h3 id="providers">Providers</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// In module</span>
+providers: [
+  DataService,  <span class="hljs-comment">// Class provider</span>
+  { provide: API_URL, useValue: <span class="hljs-string">'https://api.example.com'</span> },  <span class="hljs-comment">// Value provider</span>
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: <span class="hljs-literal">true</span> } <span class="hljs-comment">// Multi-provider</span>
+]
+
+<span class="hljs-comment">// In component (component-level provider)</span>
+<span class="hljs-meta">@Component</span>({
+  <span class="hljs-comment">//...</span>
+  providers: [DataService] <span class="hljs-comment">// Creates new instance for this component tree</span>
+})
+</div></code></pre>
+<p><strong>How it works:</strong> Providers tell Angular how to create services. Different provider types (class, value, factory) serve different purposes. Component-level providers create separate instances.</p>
+<hr>
+<h2 id="routing">Routing</h2>
+<p><strong>What it is:</strong> Angular Router enables navigation between different views/components in a single-page application. It maps URL paths to components and manages the browser's history.</p>
+<h3 id="route-configuration">Route Configuration</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// app-routing.module.ts</span>
+<span class="hljs-keyword">import</span> { NgModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> { RouterModule, Routes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/router'</span>;
+
+<span class="hljs-keyword">const</span> routes: Routes = [
+  { path: <span class="hljs-string">''</span>, redirectTo: <span class="hljs-string">'/home'</span>, pathMatch: <span class="hljs-string">'full'</span> },    <span class="hljs-comment">// Default redirect</span>
+  { path: <span class="hljs-string">'home'</span>, component: HomeComponent },              <span class="hljs-comment">// Simple route</span>
+  { path: <span class="hljs-string">'users/:id'</span>, component: UserComponent },         <span class="hljs-comment">// Route with parameter</span>
+  { path: <span class="hljs-string">'users/:id/profile'</span>, component: ProfileComponent }, <span class="hljs-comment">// Nested route</span>
+  
+  <span class="hljs-comment">// Lazy loading - loads module only when route is accessed</span>
+  { 
+    path: <span class="hljs-string">'admin'</span>, 
+    loadChildren: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./admin/admin.module'</span>).then(<span class="hljs-function"><span class="hljs-params">m</span> =&gt;</span> m.AdminModule),
+    canActivate: [AuthGuard] <span class="hljs-comment">// Route guard</span>
+  },
+  
+  <span class="hljs-comment">// Wildcard route - must be last</span>
+  { path: <span class="hljs-string">'**'</span>, component: NotFoundComponent }
+];
+
+<span class="hljs-meta">@NgModule</span>({
+  imports: [RouterModule.forRoot(routes)], <span class="hljs-comment">// Configure router at root level</span>
+  exports: [RouterModule]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AppRoutingModule { }
+</div></code></pre>
+<p><strong>How it works:</strong> Routes map URL segments to components. The router evaluates routes in order and renders the first match. Lazy loading splits the app into chunks loaded on demand.</p>
+<h3 id="router-navigation">Router Navigation</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Router, ActivatedRoute } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/router'</span>;
+
+<span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+  <span class="hljs-keyword">private</span> router: Router,        <span class="hljs-comment">// For navigation</span>
+  <span class="hljs-keyword">private</span> route: ActivatedRoute  <span class="hljs-comment">// For reading route info</span>
+</span>) {}
+
+<span class="hljs-comment">// Programmatic navigation</span>
+<span class="hljs-keyword">this</span>.router.navigate([<span class="hljs-string">'/users'</span>, userId]);                    <span class="hljs-comment">// Absolute navigation</span>
+<span class="hljs-keyword">this</span>.router.navigate([<span class="hljs-string">'../sibling'</span>], { relativeTo: <span class="hljs-keyword">this</span>.route }); <span class="hljs-comment">// Relative navigation</span>
+<span class="hljs-keyword">this</span>.router.navigateByUrl(<span class="hljs-string">'/users/123'</span>);                    <span class="hljs-comment">// URL-based navigation</span>
+
+<span class="hljs-comment">// Get route parameters</span>
+<span class="hljs-keyword">this</span>.route.params.subscribe(<span class="hljs-function"><span class="hljs-params">params</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> id = params[<span class="hljs-string">'id'</span>]; <span class="hljs-comment">// Read route parameter</span>
+});
+
+<span class="hljs-comment">// Get query parameters</span>
+<span class="hljs-keyword">this</span>.route.queryParams.subscribe(<span class="hljs-function"><span class="hljs-params">params</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> search = params[<span class="hljs-string">'search'</span>]; <span class="hljs-comment">// Read query parameter</span>
+});
+</div></code></pre>
+<p><strong>How it works:</strong> Router service handles navigation, while ActivatedRoute provides information about the active route. Route parameters and query parameters are observables that emit when the route changes.</p>
+<h3 id="template-router-links">Template Router Links</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">routerLink</span>=<span class="hljs-string">"/home"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>                              <span class="hljs-comment">&lt;!-- Static link --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> [<span class="hljs-attr">routerLink</span>]=<span class="hljs-string">"['/users', user.id]"</span>&gt;</span>User Profile<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>     <span class="hljs-comment">&lt;!-- Dynamic link --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">routerLink</span>=<span class="hljs-string">"/users"</span> [<span class="hljs-attr">queryParams</span>]=<span class="hljs-string">"{search: 'john'}"</span>&gt;</span>Search Users<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> <span class="hljs-comment">&lt;!-- With query params --&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Router outlet - where routed components are displayed --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">router-outlet</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-outlet</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Active link styling --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">routerLink</span>=<span class="hljs-string">"/home"</span> <span class="hljs-attr">routerLinkActive</span>=<span class="hljs-string">"active"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>    <span class="hljs-comment">&lt;!-- Adds 'active' class when route is active --&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> <code>routerLink</code> creates navigation links without page refresh. <code>router-outlet</code> is where the router displays the component for the current route. <code>routerLinkActive</code> adds CSS classes to active links.</p>
+<h3 id="route-guards">Route Guards</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Injectable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> { CanActivate, CanDeactivate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/router'</span>;
+
+<span class="hljs-meta">@Injectable</span>()
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AuthGuard <span class="hljs-keyword">implements</span> CanActivate {
+  canActivate(): <span class="hljs-built_in">boolean</span> {
+    <span class="hljs-comment">// Check if user can access this route</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.authService.isAuthenticated();
+  }
+}
+
+<span class="hljs-meta">@Injectable</span>()
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> CanDeactivateGuard <span class="hljs-keyword">implements</span> CanDeactivate&lt;ComponentCanDeactivate&gt; {
+  canDeactivate(component: ComponentCanDeactivate): <span class="hljs-built_in">boolean</span> {
+    <span class="hljs-comment">// Check if user can leave this route (e.g., unsaved changes)</span>
+    <span class="hljs-keyword">return</span> component.canDeactivate();
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> Route guards are services that control access to routes. They return true/false or observables/promises that resolve to boolean values. Different guard types control different aspects of navigation.</p>
+<hr>
+<h2 id="forms">Forms</h2>
+<p><strong>What it is:</strong> Angular provides two approaches for handling forms: Template-driven forms (easier, template-heavy) and Reactive forms (more powerful, component-heavy). Both provide validation, data binding, and form state management.</p>
+<h3 id="template-driven-forms">Template-Driven Forms</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">form</span> #<span class="hljs-attr">userForm</span>=<span class="hljs-string">"ngForm"</span> (<span class="hljs-attr">ngSubmit</span>)=<span class="hljs-string">"onSubmit(userForm)"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> 
+    <span class="hljs-attr">name</span>=<span class="hljs-string">"username"</span>              &lt;!<span class="hljs-attr">--</span> <span class="hljs-attr">Name</span> <span class="hljs-attr">attribute</span> <span class="hljs-attr">required</span> <span class="hljs-attr">--</span>&gt;</span>
+    [(ngModel)]="user.username"  <span class="hljs-comment">&lt;!-- Two-way data binding --&gt;</span>
+    required                     <span class="hljs-comment">&lt;!-- HTML5 validation --&gt;</span>
+    minlength="3"               <span class="hljs-comment">&lt;!-- Custom validation --&gt;</span>
+    #username="ngModel"&gt;        <span class="hljs-comment">&lt;!-- Template reference to form control --&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- Display validation errors --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> *<span class="hljs-attr">ngIf</span>=<span class="hljs-string">"username.invalid &amp;&amp; username.touched"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">small</span> *<span class="hljs-attr">ngIf</span>=<span class="hljs-string">"username.errors?.['required']"</span>&gt;</span>Username required<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">small</span> *<span class="hljs-attr">ngIf</span>=<span class="hljs-string">"username.errors?.['minlength']"</span>&gt;</span>Min 3 characters<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> [<span class="hljs-attr">disabled</span>]=<span class="hljs-string">"userForm.invalid"</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Template-driven forms use directives like <code>ngModel</code> and <code>ngForm</code>. Angular automatically creates form controls based on template directives. Form state and validation are managed in the template.</p>
+<h3 id="reactive-forms">Reactive Forms</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { FormBuilder, FormGroup, Validators, FormArray } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/forms'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> UserComponent {
+  userForm: FormGroup;
+
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> fb: FormBuilder</span>) {
+    <span class="hljs-keyword">this</span>.userForm = <span class="hljs-keyword">this</span>.fb.group({
+      username: [<span class="hljs-string">''</span>, [Validators.required, Validators.minLength(<span class="hljs-number">3</span>)]], <span class="hljs-comment">// Control with validators</span>
+      email: [<span class="hljs-string">''</span>, [Validators.required, Validators.email]],
+      profile: <span class="hljs-keyword">this</span>.fb.group({  <span class="hljs-comment">// Nested form group</span>
+        firstName: [<span class="hljs-string">''</span>],
+        lastName: [<span class="hljs-string">''</span>]
+      }),
+      hobbies: <span class="hljs-keyword">this</span>.fb.array([]) <span class="hljs-comment">// Dynamic form array</span>
+    });
+  }
+
+  <span class="hljs-keyword">get</span> hobbies() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.userForm.get(<span class="hljs-string">'hobbies'</span>) <span class="hljs-keyword">as</span> FormArray;
+  }
+
+  addHobby() {
+    <span class="hljs-keyword">this</span>.hobbies.push(<span class="hljs-keyword">this</span>.fb.control(<span class="hljs-string">''</span>));
+  }
+
+  onSubmit() {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.userForm.valid) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.userForm.value);
+    }
+  }
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">form</span> [<span class="hljs-attr">formGroup</span>]=<span class="hljs-string">"userForm"</span> (<span class="hljs-attr">ngSubmit</span>)=<span class="hljs-string">"onSubmit()"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">formControlName</span>=<span class="hljs-string">"username"</span>&gt;</span>              <span class="hljs-comment">&lt;!-- Form control binding --&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">formGroupName</span>=<span class="hljs-string">"profile"</span>&gt;</span>                   <span class="hljs-comment">&lt;!-- Nested form group --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">formControlName</span>=<span class="hljs-string">"firstName"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"First Name"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">formControlName</span>=<span class="hljs-string">"lastName"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Last Name"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">formArrayName</span>=<span class="hljs-string">"hobbies"</span>&gt;</span>                   <span class="hljs-comment">&lt;!-- Form array --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> *<span class="hljs-attr">ngFor</span>=<span class="hljs-string">"let hobby of hobbies.controls; let i = index"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> [<span class="hljs-attr">formControlName</span>]=<span class="hljs-string">"i"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">"addHobby()"</span>&gt;</span>Add Hobby<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> [<span class="hljs-attr">disabled</span>]=<span class="hljs-string">"userForm.invalid"</span>&gt;</span>Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</div></code></pre>
+<p><strong>How it works:</strong> Reactive forms define the form structure in the component class using FormBuilder. The template uses directives to bind to the form model. This approach provides more control and is better for complex forms.</p>
+<h3 id="custom-validators">Custom Validators</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { AbstractControl, ValidatorFn } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/forms'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">customValidator</span>(<span class="hljs-params"></span>): <span class="hljs-title">ValidatorFn</span> </span>{
+  <span class="hljs-keyword">return</span> (control: AbstractControl): {[key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>} | <span class="hljs-function"><span class="hljs-params">null</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> isValid = <span class="hljs-comment">/* your validation logic */</span>;
+    <span class="hljs-keyword">return</span> isValid ? <span class="hljs-literal">null</span> : {<span class="hljs-string">'customError'</span>: {value: control.value}};
+  };
+}
+
+<span class="hljs-comment">// Usage</span>
+<span class="hljs-keyword">this</span>.userForm = <span class="hljs-keyword">this</span>.fb.group({
+  username: [<span class="hljs-string">''</span>, [Validators.required, customValidator()]]
+});
+</div></code></pre>
+<p><strong>How it works:</strong> Custom validators are functions that return null for valid values or an error object for invalid values. They can be synchronous or asynchronous (return observables/promises).</p>
+<hr>
+<h2 id="http-client">HTTP Client</h2>
+<p><strong>What it is:</strong> Angular's HTTP client is a service for making HTTP requests to backend APIs. It's built on RxJS observables and provides features like interceptors, error handling, and request/response transformation.</p>
+<h3 id="setup">Setup</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// app.module.ts</span>
+<span class="hljs-keyword">import</span> { HttpClientModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
+
+<span class="hljs-meta">@NgModule</span>({
+  imports: [HttpClientModule] <span class="hljs-comment">// Import HTTP client module</span>
+})
+</div></code></pre>
+<p><strong>How it works:</strong> HttpClientModule provides the HttpClient service and related functionality. It must be imported in your app module or feature module.</p>
+<h3 id="service-implementation">Service Implementation</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { HttpClient, HttpHeaders, HttpParams } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
+<span class="hljs-keyword">import</span> { Injectable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> { Observable } <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+<span class="hljs-keyword">import</span> { catchError, map } <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs/operators'</span>;
+
+<span class="hljs-meta">@Injectable</span>()
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ApiService {
+  <span class="hljs-keyword">private</span> baseUrl = <span class="hljs-string">'https://api.example.com'</span>;
+
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> http: HttpClient</span>) {}
+
+  <span class="hljs-comment">// GET request - retrieve data</span>
+  getUsers(): Observable&lt;User[]&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.http.get&lt;User[]&gt;(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.baseUrl}</span>/users`</span>);
+  }
+
+  <span class="hljs-comment">// GET with parameters</span>
+  getUserById(id: <span class="hljs-built_in">number</span>): Observable&lt;User&gt; {
+    <span class="hljs-keyword">const</span> params = <span class="hljs-keyword">new</span> HttpParams().set(<span class="hljs-string">'include'</span>, <span class="hljs-string">'profile'</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.http.get&lt;User&gt;(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.baseUrl}</span>/users/<span class="hljs-subst">${id}</span>`</span>, { params });
+  }
+
+  <span class="hljs-comment">// POST request - create data</span>
+  createUser(user: User): Observable&lt;User&gt; {
+    <span class="hljs-keyword">const</span> headers = <span class="hljs-keyword">new</span> HttpHeaders({ <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> });
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.http.post&lt;User&gt;(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.baseUrl}</span>/users`</span>, user, { headers });
+  }
+
+  <span class="hljs-comment">// PUT request - update data</span>
+  updateUser(id: <span class="hljs-built_in">number</span>, user: User): Observable&lt;User&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.http.put&lt;User&gt;(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.baseUrl}</span>/users/<span class="hljs-subst">${id}</span>`</span>, user);
+  }
+
+  <span class="hljs-comment">// DELETE request - remove data</span>
+  deleteUser(id: <span class="hljs-built_in">number</span>): Observable&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.http.delete&lt;<span class="hljs-built_in">void</span>&gt;(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.baseUrl}</span>/users/<span class="hljs-subst">${id}</span>`</span>);
+  }
+
+  <span class="hljs-comment">// Error handling</span>
+  <span class="hljs-keyword">private</span> handleError(error: <span class="hljs-built_in">any</span>): Observable&lt;never&gt; {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'API Error:'</span>, error);
+    <span class="hljs-keyword">throw</span> error;
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> HttpClient methods return observables that emit the response data. You can configure headers, parameters, and other options. The generic type parameter (<code>&lt;User[]&gt;</code>) provides type safety.</p>
+<h3 id="http-interceptors">HTTP Interceptors</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Injectable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> { HttpInterceptor, HttpRequest, HttpHandler } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
+
+<span class="hljs-meta">@Injectable</span>()
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AuthInterceptor <span class="hljs-keyword">implements</span> HttpInterceptor {
+  intercept(req: HttpRequest&lt;<span class="hljs-built_in">any</span>&gt;, next: HttpHandler) {
+    <span class="hljs-keyword">const</span> authToken = <span class="hljs-keyword">this</span>.getAuthToken();
+    <span class="hljs-comment">// Clone the request and add authorization header</span>
+    <span class="hljs-keyword">const</span> authReq = req.clone({
+      headers: req.headers.set(<span class="hljs-string">'Authorization'</span>, <span class="hljs-string">`Bearer <span class="hljs-subst">${authToken}</span>`</span>)
+    });
+    <span class="hljs-keyword">return</span> next.handle(authReq); <span class="hljs-comment">// Pass to next interceptor or HTTP backend</span>
+  }
+}
+
+<span class="hljs-comment">// Register in module</span>
+providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: <span class="hljs-literal">true</span> }
+]
+</div></code></pre>
+<p><strong>How it works:</strong> Interceptors sit between your application and the backend. They can modify outgoing requests and incoming responses. Multiple interceptors form a chain, each calling <code>next.handle()</code> to continue.</p>
+<hr>
+<h2 id="observables--rxjs">Observables &amp; RxJS</h2>
+<p><strong>What it is:</strong> Observables are a way to handle asynchronous data streams. RxJS (Reactive Extensions for JavaScript) provides operators to work with observables for complex async operations.</p>
+<h3 id="common-operators">Common Operators</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Observable, of, <span class="hljs-keyword">from</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+<span class="hljs-keyword">import</span> { map, filter, catchError, switchMap, mergeMap, debounceTime } <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs/operators'</span>;
+
+<span class="hljs-comment">// Basic usage - transform and handle errors</span>
+<span class="hljs-keyword">this</span>.dataService.getUsers()
+  .pipe(
+    map(<span class="hljs-function"><span class="hljs-params">users</span> =&gt;</span> users.filter(<span class="hljs-function"><span class="hljs-params">user</span> =&gt;</span> user.active)), <span class="hljs-comment">// Transform data</span>
+    catchError(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> of([])) <span class="hljs-comment">// Handle errors by returning empty array</span>
+  )
+  .subscribe(<span class="hljs-function"><span class="hljs-params">users</span> =&gt;</span> {
+    <span class="hljs-keyword">this</span>.users = users;
+  });
+
+<span class="hljs-comment">// Chaining operators - search with debounce</span>
+<span class="hljs-keyword">this</span>.searchControl.valueChanges
+  .pipe(
+    debounceTime(<span class="hljs-number">300</span>),    <span class="hljs-comment">// Wait 300ms after user stops typing</span>
+    switchMap(<span class="hljs-function"><span class="hljs-params">term</span> =&gt;</span> <span class="hljs-keyword">this</span>.searchService.search(term)) <span class="hljs-comment">// Cancel previous, start new search</span>
+  )
+  .subscribe(<span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {
+    <span class="hljs-keyword">this</span>.searchResults = results;
+  });
+</div></code></pre>
+<p><strong>How it works:</strong> Observables emit values over time. Operators transform these values in a pipeline using the <code>pipe()</code> method. Each operator returns a new observable, allowing you to chain operations.</p>
+<h3 id="subject-types">Subject Types</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Subject, BehaviorSubject, ReplaySubject, AsyncSubject } <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+
+<span class="hljs-comment">// Subject - no initial value, only emits to current subscribers</span>
+<span class="hljs-keyword">private</span> messageSubject = <span class="hljs-keyword">new</span> Subject&lt;<span class="hljs-built_in">string</span>&gt;();
+
+<span class="hljs-comment">// BehaviorSubject - has initial value, new subscribers get current value</span>
+<span class="hljs-keyword">private</span> userSubject = <span class="hljs-keyword">new</span> BehaviorSubject&lt;User | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>);
+
+<span class="hljs-comment">// ReplaySubject - replays N previous values to new subscribers</span>
+<span class="hljs-keyword">private</span> historySubject = <span class="hljs-keyword">new</span> ReplaySubject&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">3</span>);
+
+<span class="hljs-comment">// AsyncSubject - only emits the last value when complete</span>
+<span class="hljs-keyword">private</span> finalSubject = <span class="hljs-keyword">new</span> AsyncSubject&lt;<span class="hljs-built_in">string</span>&gt;();
+</div></code></pre>
+<p><strong>How it works:</strong> Subjects are observables that can also act as observers (they can emit values). Different subject types have different behaviors for handling subscribers and previous values.</p>
+<hr>
+<h2 id="pipes">Pipes</h2>
+<p><strong>What it is:</strong> Pipes are functions that transform displayed values in templates. They take input data and return formatted output, like formatting dates or currencies.</p>
+<h3 id="built-in-pipes">Built-in Pipes</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- String pipes --&gt;</span>
+{{ text | uppercase }}          <span class="hljs-comment">&lt;!-- HELLO WORLD --&gt;</span>
+{{ text | lowercase }}          <span class="hljs-comment">&lt;!-- hello world --&gt;</span>
+{{ text | titlecase }}         <span class="hljs-comment">&lt;!-- Hello World --&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Number pipes --&gt;</span>
+{{ number | number:'1.2-3' }}           <span class="hljs-comment">&lt;!-- Format: minimum.minimum-maximum digits --&gt;</span>
+{{ price | currency:'USD':'symbol':'1.2-2' }}  <span class="hljs-comment">&lt;!-- $123.45 --&gt;</span>
+{{ percentage | percent }}               <span class="hljs-comment">&lt;!-- 45% --&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Date pipes --&gt;</span>
+{{ date | date:'short' }}       <span class="hljs-comment">&lt;!-- 1/1/23, 12:00 PM --&gt;</span>
+{{ date | date:'yyyy-MM-dd' }}  <span class="hljs-comment">&lt;!-- 2023-01-01 --&gt;</span>
+{{ date | date:'fullDate' }}    <span class="hljs-comment">&lt;!-- Sunday, January 1, 2023 --&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Other pipes --&gt;</span>
+{{ data | json }}               <span class="hljs-comment">&lt;!-- Pretty-print JSON --&gt;</span>
+{{ items | slice:1:5 }}        <span class="hljs-comment">&lt;!-- Array slice --&gt;</span>
+{{ text | slice:0:100 }}       <span class="hljs-comment">&lt;!-- String slice --&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Async pipe - automatically subscribes/unsubscribes --&gt;</span>
+{{ observable$ | async }}
+{{ promise | async }}
+</div></code></pre>
+<p><strong>How it works:</strong> Pipes use the <code>|</code> symbol in templates. They're pure functions that take a value and parameters, returning a transformed value. Angular updates the display when input values change.</p>
+<h3 id="custom-pipe">Custom Pipe</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Pipe, PipeTransform } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+
+<span class="hljs-meta">@Pipe</span>({
+  name: <span class="hljs-string">'truncate'</span>,
+  pure: <span class="hljs-literal">true</span> <span class="hljs-comment">// Default - pipe is pure (no side effects)</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TruncatePipe <span class="hljs-keyword">implements</span> PipeTransform {
+  transform(value: <span class="hljs-built_in">string</span>, limit: <span class="hljs-built_in">number</span> = <span class="hljs-number">50</span>, trail: <span class="hljs-built_in">string</span> = <span class="hljs-string">'...'</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">if</span> (!value) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">return</span> value.length &gt; limit ? value.substring(<span class="hljs-number">0</span>, limit) + trail : value;
+  }
+}
+
+<span class="hljs-comment">// Usage</span>
+{{ longText | truncate:<span class="hljs-number">100</span>:<span class="hljs-string">'...'</span> }}
+</div></code></pre>
+<p><strong>How it works:</strong> Custom pipes implement <code>PipeTransform</code> interface. Pure pipes are cached and only re-run when inputs change. Impure pipes run on every change detection cycle.</p>
+<hr>
+<h2 id="lifecycle-hooks">Lifecycle Hooks</h2>
+<p><strong>What it is:</strong> Lifecycle hooks are methods that Angular calls at specific moments in a component's lifecycle, from creation to destruction. They allow you to tap into key moments and perform custom logic.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { 
+  OnInit, OnDestroy, OnChanges, 
+  AfterViewInit, AfterViewChecked,
+  AfterContentInit, AfterContentChecked,
+  SimpleChanges 
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MyComponent <span class="hljs-keyword">implements</span> OnInit, OnDestroy, OnChanges {
+  
+  <span class="hljs-comment">// Called once after component initialization and first ngOnChanges</span>
+  ngOnInit() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Component initialized'</span>);
+    <span class="hljs-comment">// Initialize data, set up subscriptions</span>
+  }
+
+  <span class="hljs-comment">// Called when input properties change</span>
+  ngOnChanges(changes: SimpleChanges) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Input properties changed'</span>, changes);
+    <span class="hljs-comment">// React to input property changes</span>
+  }
+
+  <span class="hljs-comment">// Called after view initialization (after first ngAfterContentChecked)</span>
+  ngAfterViewInit() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'View initialized'</span>);
+    <span class="hljs-comment">// Access ViewChild elements, initialize third-party libraries</span>
+  }
+
+  <span class="hljs-comment">// Called before component destruction</span>
+  ngOnDestroy() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Component destroyed'</span>);
+    <span class="hljs-comment">// Clean up subscriptions, intervals, event listeners</span>
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> Angular calls these methods automatically during the component lifecycle. The order is: constructor → ngOnChanges → ngOnInit → ngAfterContentInit → ngAfterViewInit → ngOnDestroy (when component is removed).</p>
+<hr>
+<h2 id="modules">Modules</h2>
+<p><strong>What it is:</strong> Modules are containers that group related components, services, directives, and pipes. They help organize the application and enable features like lazy loading.</p>
+<h3 id="feature-module">Feature Module</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { NgModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> { CommonModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common'</span>;
+<span class="hljs-keyword">import</span> { FormsModule, ReactiveFormsModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/forms'</span>;
+
+<span class="hljs-meta">@NgModule</span>({
+  declarations: [    <span class="hljs-comment">// Components, directives, pipes that belong to this module</span>
+    FeatureComponent,
+    FeatureDirective,
+    FeaturePipe
+  ],
+  imports: [        <span class="hljs-comment">// Other modules this module depends on</span>
+    CommonModule,    <span class="hljs-comment">// Provides ngIf, ngFor, etc.</span>
+    FormsModule,
+    ReactiveFormsModule,
+    FeatureRoutingModule
+  ],
+  providers: [      <span class="hljs-comment">// Services available to this module</span>
+    FeatureService
+  ],
+  exports: [        <span class="hljs-comment">// Components/directives/pipes available to importing modules</span>
+    FeatureComponent
+  ]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FeatureModule { }
+</div></code></pre>
+<p><strong>How it works:</strong> Modules define compilation contexts. Declarations are compiled together, imports bring in external functionality, providers define available services, and exports make declarations available to other modules.</p>
+<h3 id="shared-module">Shared Module</h3>
+<pre class="hljs"><code><div><span class="hljs-meta">@NgModule</span>({
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  declarations: [
+    SharedComponent,
+    SharedDirective,
+    SharedPipe
+  ],
+  exports: [        <span class="hljs-comment">// Re-export imported modules and own declarations</span>
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedComponent,
+    SharedDirective,
+    SharedPipe
+  ]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> SharedModule { }
+</div></code></pre>
+<p><strong>How it works:</strong> Shared modules consolidate commonly used functionality. They re-export both their own declarations and imported modules, making them available to any module that imports the shared module.</p>
+<hr>
+<h2 id="testing">Testing</h2>
+<p><strong>What it is:</strong> Angular provides tools for unit testing (testing individual components/services) and integration testing. Tests ensure your code works correctly and prevent regressions.</p>
+<h3 id="component-testing">Component Testing</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { ComponentFixture, TestBed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core/testing'</span>;
+<span class="hljs-keyword">import</span> { By } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/platform-browser'</span>;
+
+describe(<span class="hljs-string">'MyComponent'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">let</span> component: MyComponent;
+  <span class="hljs-keyword">let</span> fixture: ComponentFixture&lt;MyComponent&gt;;
+
+  beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">await</span> TestBed.configureTestingModule({
+      declarations: [MyComponent],  <span class="hljs-comment">// Components to test</span>
+      imports: [FormsModule],       <span class="hljs-comment">// Required modules</span>
+      providers: [MyService]        <span class="hljs-comment">// Required services</span>
+    }).compileComponents();
+  });
+
+  beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    fixture = TestBed.createComponent(MyComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); <span class="hljs-comment">// Trigger change detection</span>
+  });
+
+  it(<span class="hljs-string">'should create'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    expect(component).toBeTruthy();
+  });
+
+  it(<span class="hljs-string">'should display title'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    component.title = <span class="hljs-string">'Test Title'</span>;
+    fixture.detectChanges(); <span class="hljs-comment">// Update the DOM</span>
+    <span class="hljs-keyword">const</span> titleElement = fixture.debugElement.query(By.css(<span class="hljs-string">'h1'</span>));
+    expect(titleElement.nativeElement.textContent).toContain(<span class="hljs-string">'Test Title'</span>);
+  });
+});
+</div></code></pre>
+<p><strong>How it works:</strong> TestBed creates a testing module that mimics your app module. ComponentFixture wraps the component and provides methods to interact with it. <code>detectChanges()</code> triggers Angular's change detection to update the DOM.</p>
+<h3 id="service-testing">Service Testing</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { TestBed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core/testing'</span>;
+<span class="hljs-keyword">import</span> { HttpClientTestingModule, HttpTestingController } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http/testing'</span>;
+
+describe(<span class="hljs-string">'DataService'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">let</span> service: DataService;
+  <span class="hljs-keyword">let</span> httpMock: HttpTestingController;
+
+  beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule], <span class="hljs-comment">// Mock HTTP client</span>
+      providers: [DataService]
+    });
+    service = TestBed.inject(DataService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  it(<span class="hljs-string">'should fetch users'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> mockUsers = [{ id: <span class="hljs-number">1</span>, name: <span class="hljs-string">'John'</span> }];
+
+    service.getUsers().subscribe(<span class="hljs-function"><span class="hljs-params">users</span> =&gt;</span> {
+      expect(users).toEqual(mockUsers);
+    });
+
+    <span class="hljs-comment">// Expect HTTP request and provide mock response</span>
+    <span class="hljs-keyword">const</span> req = httpMock.expectOne(<span class="hljs-string">'/api/users'</span>);
+    expect(req.request.method).toBe(<span class="hljs-string">'GET'</span>);
+    req.flush(mockUsers); <span class="hljs-comment">// Provide mock data</span>
+  });
+
+  afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    httpMock.verify(); <span class="hljs-comment">// Ensure no outstanding requests</span>
+  });
+});
+</div></code></pre>
+<p><strong>How it works:</strong> HttpClientTestingModule provides HttpTestingController to mock HTTP requests. You can verify that correct requests are made and provide mock responses for testing.</p>
+<hr>
+<h2 id="performance--optimization">Performance &amp; Optimization</h2>
+<p><strong>What it is:</strong> Angular provides several strategies to optimize application performance, including change detection optimization, lazy loading, and efficient rendering techniques.</p>
+<h3 id="change-detection-strategy">Change Detection Strategy</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { ChangeDetectionStrategy, ChangeDetectorRef } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+
+<span class="hljs-meta">@Component</span>({
+  selector: <span class="hljs-string">'app-optimized'</span>,
+  changeDetection: ChangeDetectionStrategy.OnPush, <span class="hljs-comment">// Only check when inputs change or events occur</span>
+  template: <span class="hljs-string">`...`</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> OptimizedComponent {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> cdr: ChangeDetectorRef</span>) {}
+
+  updateData() {
+    <span class="hljs-comment">// Manually trigger change detection when needed</span>
+    <span class="hljs-keyword">this</span>.cdr.detectChanges();
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> OnPush strategy reduces change detection cycles by only checking the component when its inputs change, events occur, or you manually trigger detection. This significantly improves performance for large component trees.</p>
+<h3 id="trackby-functions">TrackBy Functions</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Component</span>
+trackByFn(index: <span class="hljs-built_in">number</span>, item: <span class="hljs-built_in">any</span>) {
+  <span class="hljs-keyword">return</span> item.id; <span class="hljs-comment">// Use unique identifier instead of object reference</span>
+}
+
+<span class="hljs-comment">// Template</span>
+&lt;li *ngFor=<span class="hljs-string">"let item of items; trackBy: trackByFn"</span>&gt;
+  {{item.name}}
+&lt;<span class="hljs-regexp">/li&gt;
+</span></div></code></pre>
+<p><strong>How it works:</strong> TrackBy functions help Angular identify which items in a list have changed. Without trackBy, Angular re-renders all items when the array changes. With trackBy, it only updates changed items.</p>
+<h3 id="lazy-loading">Lazy Loading</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Lazy load modules - code splitting</span>
+<span class="hljs-keyword">const</span> routes: Routes = [
+  {
+    path: <span class="hljs-string">'feature'</span>,
+    loadChildren: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./feature/feature.module'</span>).then(<span class="hljs-function"><span class="hljs-params">m</span> =&gt;</span> m.FeatureModule)
+  }
+];
+</div></code></pre>
+<p><strong>How it works:</strong> Lazy loading splits your application into chunks that are loaded only when needed. This reduces initial bundle size and improves startup performance.</p>
+<h3 id="onpush-optimization">OnPush Optimization</h3>
+<pre class="hljs"><code><div><span class="hljs-meta">@Component</span>({
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> OptimizedComponent {
+  <span class="hljs-meta">@Input</span>() data: <span class="hljs-built_in">any</span>; <span class="hljs-comment">// Use immutable data structures</span>
+  
+  <span class="hljs-comment">// Use observables with async pipe for reactive data</span>
+  data$ = <span class="hljs-keyword">this</span>.dataService.getData();
+}
+</div></code></pre>
+<p><strong>How it works:</strong> OnPush components work best with immutable data and observables. The async pipe automatically triggers change detection when observables emit new values.</p>
+<hr>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="code-organization">Code Organization</h3>
+<ul>
+<li><strong>Use feature modules:</strong> Group related functionality into separate modules for better organization and lazy loading</li>
+<li><strong>Implement lazy loading:</strong> Load feature modules only when needed to reduce initial bundle size</li>
+<li><strong>Create shared modules:</strong> Consolidate common components, directives, and pipes into shared modules</li>
+<li><strong>Use barrel exports (index.ts files):</strong> Simplify imports by re-exporting from a single file</li>
+</ul>
+<h3 id="performance">Performance</h3>
+<ul>
+<li><strong>Use OnPush change detection strategy:</strong> Reduces unnecessary change detection cycles</li>
+<li><strong>Implement trackBy functions for ngFor:</strong> Helps Angular efficiently update lists</li>
+<li><strong>Unsubscribe from observables in ngOnDestroy:</strong> Prevents memory leaks</li>
+<li><strong>Use async pipe for observables in templates:</strong> Automatically handles subscription/unsubscription</li>
+</ul>
+<h3 id="security">Security</h3>
+<ul>
+<li><strong>Sanitize user inputs:</strong> Angular sanitizes by default, but be careful with innerHTML and bypassSecurityTrust methods</li>
+<li><strong>Use HTTPS:</strong> Always use secure connections in production</li>
+<li><strong>Implement proper authentication:</strong> Use tokens, guards, and secure storage</li>
+<li><strong>Validate data on both client and server:</strong> Never trust client-side validation alone</li>
+</ul>
+<h3 id="development">Development</h3>
+<ul>
+<li><strong>Use TypeScript strictly:</strong> Enable strict mode for better type safety</li>
+<li><strong>Follow Angular style guide:</strong> Consistent code style improves maintainability</li>
+<li><strong>Write unit tests:</strong> Ensure code quality and prevent regressions</li>
+<li><strong>Use linting tools (ESLint, Prettier):</strong> Maintain code quality and consistency</li>
+<li><strong>Use environment files for configuration:</strong> Separate development and production settings</li>
+</ul>
+<hr>
+<h2 id="common-patterns">Common Patterns</h2>
+<h3 id="unsubscribe-pattern">Unsubscribe Pattern</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Subject } <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs'</span>;
+<span class="hljs-keyword">import</span> { takeUntil } <span class="hljs-keyword">from</span> <span class="hljs-string">'rxjs/operators'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MyComponent <span class="hljs-keyword">implements</span> OnInit, OnDestroy {
+  <span class="hljs-keyword">private</span> destroy$ = <span class="hljs-keyword">new</span> Subject&lt;<span class="hljs-built_in">void</span>&gt;();
+
+  ngOnInit() {
+    <span class="hljs-keyword">this</span>.dataService.getData()
+      .pipe(takeUntil(<span class="hljs-keyword">this</span>.destroy$)) <span class="hljs-comment">// Automatically unsubscribe when destroy$ emits</span>
+      .subscribe(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+        <span class="hljs-comment">// Handle data</span>
+      });
+  }
+
+  ngOnDestroy() {
+    <span class="hljs-keyword">this</span>.destroy$.next();    <span class="hljs-comment">// Emit value to trigger unsubscribe</span>
+    <span class="hljs-keyword">this</span>.destroy$.complete(); <span class="hljs-comment">// Complete the subject</span>
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> This pattern uses a subject that emits when the component is destroyed. <code>takeUntil</code> operator completes all subscriptions when the destroy subject emits, preventing memory leaks.</p>
+<h3 id="loading-state-pattern">Loading State Pattern</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> MyComponent {
+  loading = <span class="hljs-literal">false</span>;
+  error: <span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;
+  data: <span class="hljs-built_in">any</span>[] = [];
+
+  loadData() {
+    <span class="hljs-keyword">this</span>.loading = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">this</span>.error = <span class="hljs-literal">null</span>;
+    
+    <span class="hljs-keyword">this</span>.dataService.getData()
+      .subscribe({
+        next: <span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
+          <span class="hljs-keyword">this</span>.data = data;
+          <span class="hljs-keyword">this</span>.loading = <span class="hljs-literal">false</span>;
+        },
+        error: <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+          <span class="hljs-keyword">this</span>.error = <span class="hljs-string">'Failed to load data'</span>;
+          <span class="hljs-keyword">this</span>.loading = <span class="hljs-literal">false</span>;
+        }
+      });
+  }
+}
+</div></code></pre>
+<p><strong>How it works:</strong> This pattern manages loading states explicitly with boolean flags and error handling. It provides clear feedback to users about the application state and handles both success and error scenarios.</p>
+<hr>
+<h2 id="key-concepts-summary">Key Concepts Summary</h2>
+<p><strong>Angular Architecture:</strong> Angular is built around components organized in modules, with services providing business logic and dependency injection managing dependencies.</p>
+<p><strong>Data Flow:</strong> Data flows down through inputs and up through outputs. Change detection keeps the view synchronized with the model.</p>
+<p><strong>Reactive Programming:</strong> Angular embraces reactive programming with RxJS observables for handling asynchronous operations.</p>
+<p><strong>Modularity:</strong> Features are organized into modules that can be lazy-loaded, improving performance and maintainability.</p>
+<p><strong>Type Safety:</strong> TypeScript provides compile-time type checking, reducing runtime errors and improving developer experience.</p>
+<p>This comprehensive cheat sheet covers the essential Angular concepts with explanations of how each feature works. Keep it handy for quick reference during your Angular development!</p>
+
+</body>
+</html>
