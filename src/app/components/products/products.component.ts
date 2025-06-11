@@ -1,22 +1,25 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Iproduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
-import { Icategory } from '../../models/icategory';
 import { FormsModule } from '@angular/forms';
+import { HighlightCardDirective } from '../../Directives/highlight-card.directive';
 
 @Component({
   selector: 'app-products',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,HighlightCardDirective],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnChanges {
   products:Iproduct[];
-  categories:Icategory[]
-  selectedCategoryId:number = 0;
-  totalOrderPrice:number = 0;
+  Filteredproducts:Iproduct[];
+
+  @Output() OntotalPriceChanged:EventEmitter<number>;
   purchasedQuantity:number = 0;
+  @Input() CatIDfromParent:number = 0
+  totalOrderPrice:number = 0;
   constructor(){
+    this.OntotalPriceChanged = new EventEmitter<number>();
     this.products = [
       {id:100, name:'laptop', price:100000, stock:1, imgUrl:'https://cdn.mos.cms.futurecdn.net/Gw3Se82bvppoJsHc4rCVsQ.jpg', catId:1},
       {id:200, name:'tv', price:200000, stock:2, imgUrl:'https://i5.walmartimages.com/seo/SAMSUNG-32-Class-FHD-1080P-Smart-LED-TV-UN32N5300_2b2943fd-73d6-4d7b-9c54-e22db0c660f1_4.e79d68ec3a718064170de6cbd82e6030.jpeg', catId:1},
@@ -30,14 +33,12 @@ export class ProductsComponent {
       {id:1000, name:'battery', price:1000000, stock:10, imgUrl:'https://batteryjoe.com/wp-content/uploads/2019/08/iphone7battery-1200x600.jpg', catId:3},
       {id:1100, name:'camera', price:1100000, stock:11, imgUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRExEtIpdxQ4vvk5iZdcejgcXsiPs599UBWrg&s', catId:3}
     ];
-    this.categories = [
-      {id:1, name:'cat1'},
-      {id:2, name:'cat2'},
-      {id:3, name:'cat3'},
-
-
-    ]
+    this.Filteredproducts = this.products;
   }
+  ngOnChanges(){
+      this.filterProducts();
+  }
+
   buy(quantity:string, product:Iproduct, inputElement:HTMLInputElement){
     if (inputElement.valueAsNumber <=0){
       alert("Quantity can not be less than or equal to zero");
@@ -51,6 +52,14 @@ export class ProductsComponent {
     }
     this.totalOrderPrice += Number(quantity)*product.price
     product.stock-= +quantity
-
+    this.OntotalPriceChanged.emit(this.totalOrderPrice);
+  }
+  filterProducts(){
+    if(this.CatIDfromParent == 0){
+      this.Filteredproducts = this.products
+    }
+    else{
+      this.Filteredproducts = this.products.filter(p=> p.catId == this.CatIDfromParent)
+    }
   }
 }

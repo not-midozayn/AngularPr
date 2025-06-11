@@ -1,0 +1,15 @@
+ <h1>Selected Catagory Id = {{selectedCategoryId}}</h1>
+ <p>Total Order Price : {{total}}</p>
+<div class="mb-3">
+  <label for="" class="form-label">Categories</label>
+  <select [(ngModel)]="selectedCategoryId"
+    class="form-select form-select-lg"
+    name=""
+    id=""
+  >
+    <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+  </select>
+</div>
+<div class="bg-success">
+    <app-products [CatIDfromParent]="selectedCategoryId" (OntotalPriceChanged) ="RecieveTotalPriceFromChild($event)"></app-products>
+</div>
