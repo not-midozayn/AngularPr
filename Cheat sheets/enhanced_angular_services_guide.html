@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>enhanced_angular_services_guide.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+<link rel="stylesheet" href="file:///c%3A//Users//midozen//Desktop//Javascript%20Methods//style.css" type="text/css">
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///c%3A//Users//midozen//Desktop//Javascript%20Methods//style.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="angular-services-reference-guide-for-fullstack-developers">Angular Services Reference Guide for Fullstack Developers</h1>
+<h2 id="core-http-services">Core HTTP Services</h2>
+<h3 id="1-httpclient">1. HttpClient</h3>
+<p><strong>Purpose</strong>: Provides a simplified API for HTTP communication with backend services. It replaced the older Http service and offers better type safety, interceptors, and observables. <strong>Use this service when you need to communicate with REST APIs, fetch data from external services, send form data to servers, upload files, or integrate with any backend system.</strong></p>
+<p>• <strong>get()</strong>: Performs HTTP GET request to retrieve data from server</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to fetch user profiles, load product catalogs, retrieve dashboard data, get configuration settings, fetch search results, or pull any read-only data from your backend</li>
+<li>Parameters: <code>url: string</code>, <code>options?: HttpOptions</code></li>
+<li>Returns: <code>Observable&lt;T&gt;</code></li>
+<li>Example: <code>this.http.get&lt;User[]&gt;('/api/users')</code></li>
+</ul>
+<p>• <strong>post()</strong>: Performs HTTP POST request to send data to server</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create new user accounts, submit contact forms, save new blog posts, register users, send login credentials, create new records, or submit any form data that creates new resources</li>
+<li>Parameters: <code>url: string</code>, <code>body: any</code>, <code>options?: HttpOptions</code></li>
+<li>Returns: <code>Observable&lt;T&gt;</code></li>
+<li>Example: <code>this.http.post&lt;User&gt;('/api/users', userData)</code></li>
+</ul>
+<p>• <strong>put()</strong>: Performs HTTP PUT request to update existing resource</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to update user profiles completely, replace entire documents, update product information, modify settings, or perform full resource replacement operations</li>
+<li>Parameters: <code>url: string</code>, <code>body: any</code>, <code>options?: HttpOptions</code></li>
+<li>Returns: <code>Observable&lt;T&gt;</code></li>
+<li>Example: <code>this.http.put&lt;User&gt;('/api/users/1', updatedUser)</code></li>
+</ul>
+<p>• <strong>delete()</strong>: Performs HTTP DELETE request to remove resource</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to delete user accounts, remove blog posts, cancel orders, delete uploaded files, remove items from catalogs, or permanently remove any resources from your system</li>
+<li>Parameters: <code>url: string</code>, <code>options?: HttpOptions</code></li>
+<li>Returns: <code>Observable&lt;T&gt;</code></li>
+<li>Example: <code>this.http.delete('/api/users/1')</code></li>
+</ul>
+<p>• <strong>patch()</strong>: Performs HTTP PATCH request for partial updates</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to update only specific fields like changing a user's email, updating a status flag, modifying a single property, or making small incremental changes without replacing the entire resource</li>
+<li>Parameters: <code>url: string</code>, <code>body: any</code>, <code>options?: HttpOptions</code></li>
+<li>Returns: <code>Observable&lt;T&gt;</code></li>
+<li>Example: <code>this.http.patch('/api/users/1', { name: 'New Name' })</code></li>
+</ul>
+<p>• <strong>request()</strong>: Generic method for any HTTP request</p>
+<ul>
+<li><strong>Use this method when</strong>: You need custom HTTP methods, want to handle complex request configurations, need fine-grained control over the request, or are working with non-standard REST APIs that require specific HTTP verbs</li>
+<li>Parameters: <code>method: string</code>, <code>url: string</code>, <code>options?: HttpOptions</code></li>
+<li>Returns: <code>Observable&lt;T&gt;</code></li>
+<li>Example: <code>this.http.request('GET', '/api/users')</code></li>
+</ul>
+<h3 id="2-httpheaders">2. HttpHeaders</h3>
+<p><strong>Purpose</strong>: Creates and manipulates HTTP headers for requests. Essential for setting content types, authorization tokens, and custom headers. <strong>Use this service when you need to authenticate API requests, set content types for file uploads, add custom headers for tracking, implement CORS handling, or communicate specific metadata to your backend.</strong></p>
+<p>• <strong>set()</strong>: Sets a header value</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to add authentication tokens, set content types for JSON/XML data, add API keys, set custom headers for tracking user sessions, or replace existing header values completely</li>
+<li>Parameters: <code>name: string</code>, <code>value: string</code></li>
+<li>Returns: <code>HttpHeaders</code></li>
+<li>Example: <code>headers.set('Content-Type', 'application/json')</code></li>
+</ul>
+<p>• <strong>append()</strong>: Adds a new value to existing header</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to add multiple values to the same header (like Accept types), append additional authentication methods, or add supplementary header information without replacing existing values</li>
+<li>Parameters: <code>name: string</code>, <code>value: string</code></li>
+<li>Returns: <code>HttpHeaders</code></li>
+<li>Example: <code>headers.append('Accept', 'text/plain')</code></li>
+</ul>
+<p>• <strong>delete()</strong>: Removes a header</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to remove sensitive information before logging requests, clear authentication headers for public endpoints, remove debugging headers in production, or clean up headers before caching</li>
+<li>Parameters: <code>name: string</code></li>
+<li>Returns: <code>HttpHeaders</code></li>
+<li>Example: <code>headers.delete('Authorization')</code></li>
+</ul>
+<p>• <strong>get()</strong>: Retrieves header value</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to check if authentication tokens exist, validate content types in responses, read custom headers from the server, debug header issues, or implement conditional logic based on header values</li>
+<li>Parameters: <code>name: string</code></li>
+<li>Returns: <code>string | null</code></li>
+<li>Example: <code>const token = headers.get('Authorization')</code></li>
+</ul>
+<p>• <strong>has()</strong>: Checks if header exists</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to verify authentication headers are present before making requests, check if required headers exist, implement conditional header logic, or validate request configurations</li>
+<li>Parameters: <code>name: string</code></li>
+<li>Returns: <code>boolean</code></li>
+<li>Example: <code>if (headers.has('Content-Type'))</code></li>
+</ul>
+<h3 id="3-httpparams">3. HttpParams</h3>
+<p><strong>Purpose</strong>: Constructs URL query parameters in a type-safe way. Handles encoding and formatting of query strings. <strong>Use this service when you need to implement search functionality, pagination, filtering, sorting, passing configuration options to APIs, or building complex query strings for data retrieval.</strong></p>
+<p>• <strong>set()</strong>: Sets a parameter value</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to set pagination page numbers, define search terms, set filter criteria, specify sort orders, or replace existing parameter values in API calls</li>
+<li>Parameters: <code>param: string</code>, <code>value: string</code></li>
+<li>Returns: <code>HttpParams</code></li>
+<li>Example: <code>params.set('page', '1')</code></li>
+</ul>
+<p>• <strong>append()</strong>: Adds parameter value to existing parameter</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to add multiple filter values (like tags or categories), append additional search terms, add multiple sort criteria, or build complex query parameters with multiple values</li>
+<li>Parameters: <code>param: string</code>, <code>value: string</code></li>
+<li>Returns: <code>HttpParams</code></li>
+<li>Example: <code>params.append('tags', 'angular')</code></li>
+</ul>
+<p>• <strong>delete()</strong>: Removes a parameter</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to remove filter criteria, clear search terms, reset pagination parameters, or clean up URL parameters for cleaner URLs</li>
+<li>Parameters: <code>param: string</code></li>
+<li>Returns: <code>HttpParams</code></li>
+<li>Example: <code>params.delete('filter')</code></li>
+</ul>
+<p>• <strong>get()</strong>: Gets parameter value</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to read current page numbers, check active filters, validate search terms, or debug query parameter issues in your application</li>
+<li>Parameters: <code>param: string</code></li>
+<li>Returns: <code>string | null</code></li>
+<li>Example: <code>const page = params.get('page')</code></li>
+</ul>
+<p>• <strong>toString()</strong>: Converts to query string</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to manually construct URLs, debug query parameters, log request URLs, cache URL strings, or integrate with non-Angular HTTP libraries</li>
+<li>Parameters: None</li>
+<li>Returns: <code>string</code></li>
+<li>Example: <code>const queryString = params.toString()</code></li>
+</ul>
+<h2 id="routing-services">Routing Services</h2>
+<h3 id="4-router">4. Router</h3>
+<p><strong>Purpose</strong>: Provides navigation and URL manipulation capabilities. Core service for single-page application routing and programmatic navigation. <strong>Use this service when you need to navigate between pages after form submissions, redirect users after authentication, navigate based on user permissions, implement breadcrumb navigation, or handle deep linking in your application.</strong></p>
+<p>• <strong>navigate()</strong>: Navigates to a route using an array of route segments</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to navigate to user detail pages with IDs, go to specific product pages, navigate after successful form submissions, implement programmatic navigation based on user actions, or redirect users after authentication</li>
+<li>Parameters: <code>commands: any[]</code>, <code>extras?: NavigationExtras</code></li>
+<li>Returns: <code>Promise&lt;boolean&gt;</code></li>
+<li>Example: <code>this.router.navigate(['/users', userId])</code></li>
+</ul>
+<p>• <strong>navigateByUrl()</strong>: Navigates using absolute URL</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to redirect to external routes, navigate to absolute paths, handle deep links, redirect after logout, or navigate to completely different sections of your application</li>
+<li>Parameters: <code>url: string</code>, <code>extras?: NavigationExtras</code></li>
+<li>Returns: <code>Promise&lt;boolean&gt;</code></li>
+<li>Example: <code>this.router.navigateByUrl('/dashboard')</code></li>
+</ul>
+<p>• <strong>createUrlTree()</strong>: Creates URL tree from route segments</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to build URLs for href attributes, generate shareable links, create navigation URLs programmatically, or construct complex URLs with query parameters and fragments</li>
+<li>Parameters: <code>commands: any[]</code>, <code>extras?: NavigationExtras</code></li>
+<li>Returns: <code>UrlTree</code></li>
+<li>Example: <code>const urlTree = this.router.createUrlTree(['/users'])</code></li>
+</ul>
+<p>• <strong>serializeUrl()</strong>: Converts URL tree to string</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to generate shareable URLs, create bookmark links, log navigation URLs, send URLs via email, or integrate with external URL management systems</li>
+<li>Parameters: <code>url: UrlTree</code></li>
+<li>Returns: <code>string</code></li>
+<li>Example: <code>const url = this.router.serializeUrl(urlTree)</code></li>
+</ul>
+<p>• <strong>parseUrl()</strong>: Parses URL string into URL tree</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to analyze incoming URLs, validate route structures, extract route parameters from URLs, implement custom route handling, or debug routing issues</li>
+<li>Parameters: <code>url: string</code></li>
+<li>Returns: <code>UrlTree</code></li>
+<li>Example: <code>const tree = this.router.parseUrl('/users/123')</code></li>
+</ul>
+<h3 id="5-activatedroute">5. ActivatedRoute</h3>
+<p><strong>Purpose</strong>: Provides information about the active route, including parameters, query parameters, and route data. Essential for component initialization based on route. <strong>Use this service when you need to load data based on URL parameters, implement search functionality with query parameters, handle route-specific data, or build components that respond to URL changes.</strong></p>
+<p>• <strong>paramMap</strong>: Observable of route parameters</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to load user profiles based on user ID in URL, display product details based on product ID, implement edit forms with record IDs, or handle any route-specific data loading</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>Observable&lt;ParamMap&gt;</code></li>
+<li>Example: <code>this.route.paramMap.subscribe(params =&gt; params.get('id'))</code></li>
+</ul>
+<p>• <strong>queryParamMap</strong>: Observable of query parameters</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to implement search functionality, handle pagination parameters, manage filter states, track analytics parameters, or maintain application state through URL query parameters</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>Observable&lt;ParamMap&gt;</code></li>
+<li>Example: <code>this.route.queryParamMap.subscribe(params =&gt; params.get('search'))</code></li>
+</ul>
+<p>• <strong>data</strong>: Observable of route data</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to access pre-loaded data from route resolvers, handle static route configuration data, implement role-based content display, or use data passed through route definitions</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>Observable&lt;Data&gt;</code></li>
+<li>Example: <code>this.route.data.subscribe(data =&gt; data.user)</code></li>
+</ul>
+<p>• <strong>url</strong>: Observable of URL segments</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to implement breadcrumb navigation, track current page analytics, build dynamic navigation menus, or handle complex nested routing scenarios</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>Observable&lt;UrlSegment[]&gt;</code></li>
+<li>Example: <code>this.route.url.subscribe(segments =&gt; segments[0].path)</code></li>
+</ul>
+<p>• <strong>fragment</strong>: Observable of URL fragment</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to scroll to specific page sections, handle anchor navigation, implement single-page documentation with sections, or manage in-page navigation features</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>Observable&lt;string&gt;</code></li>
+<li>Example: <code>this.route.fragment.subscribe(fragment =&gt; fragment)</code></li>
+</ul>
+<h3 id="6-location">6. Location</h3>
+<p><strong>Purpose</strong>: Provides interaction with browser's URL and history. Allows manipulation of browser history without full page reloads. <strong>Use this service when you need to implement custom back buttons, manage browser history in single-page apps, handle URL changes without navigation, or build wizard-like interfaces with history management.</strong></p>
+<p>• <strong>back()</strong>: Navigates back in browser history</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement custom back buttons, cancel operations and return to previous pages, provide navigation in modal dialogs, or handle form cancellation with proper history management</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.location.back()</code></li>
+</ul>
+<p>• <strong>forward()</strong>: Navigates forward in browser history</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement custom forward buttons, restore user navigation after going back, build custom navigation controls, or handle complex navigation flows</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.location.forward()</code></li>
+</ul>
+<p>• <strong>go()</strong>: Navigates to specific position in history</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to jump multiple steps back in navigation, implement breadcrumb navigation that skips intermediate steps, or handle complex wizard navigation with history jumping</li>
+<li>Parameters: <code>relativePosition: number</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.location.go(-2)</code></li>
+</ul>
+<p>• <strong>replaceState()</strong>: Replaces current state in history</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to update URLs without adding history entries, clean up temporary URL parameters, implement stepper interfaces, or prevent back button issues in workflows</li>
+<li>Parameters: <code>path: string</code>, <code>query?: string</code>, <code>state?: any</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.location.replaceState('/new-path')</code></li>
+</ul>
+<p>• <strong>path()</strong>: Gets current path</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement analytics tracking, validate current routes, build dynamic navigation logic, log user paths, or handle conditional logic based on current location</li>
+<li>Parameters: <code>includeHash?: boolean</code></li>
+<li>Returns: <code>string</code></li>
+<li>Example: <code>const currentPath = this.location.path()</code></li>
+</ul>
+<h2 id="form-services">Form Services</h2>
+<h3 id="7-formbuilder">7. FormBuilder</h3>
+<p><strong>Purpose</strong>: Provides convenient methods for creating reactive form controls, groups, and arrays. Simplifies form creation with less boilerplate code. <strong>Use this service when you need to create user registration forms, build dynamic forms, implement form validation, create survey forms, or build any complex form interfaces with reactive programming patterns.</strong></p>
+<p>• <strong>control()</strong>: Creates a FormControl</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create individual input fields, implement custom form controls, build reusable form components, add dynamic form fields, or create standalone form inputs with validation</li>
+<li>Parameters: <code>formState?: any</code>, <code>validators?: ValidatorFn | ValidatorFn[]</code></li>
+<li>Returns: <code>FormControl</code></li>
+<li>Example: <code>this.fb.control('', Validators.required)</code></li>
+</ul>
+<p>• <strong>group()</strong>: Creates a FormGroup</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create user registration forms, build contact forms, implement settings pages, create login forms, or group related form fields together with shared validation logic</li>
+<li>Parameters: <code>controlsConfig: object</code>, <code>options?: object</code></li>
+<li>Returns: <code>FormGroup</code></li>
+<li>Example: <code>this.fb.group({ name: ['', Validators.required] })</code></li>
+</ul>
+<p>• <strong>array()</strong>: Creates a FormArray</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create dynamic lists of form fields, implement tag input systems, build survey forms with variable questions, create address lists, or handle any scenario with repeating form elements</li>
+<li>Parameters: <code>controlsConfig: any[]</code>, <code>validators?: ValidatorFn | ValidatorFn[]</code></li>
+<li>Returns: <code>FormArray</code></li>
+<li>Example: <code>this.fb.array([this.fb.control('')])</code></li>
+</ul>
+<h3 id="8-validators">8. Validators</h3>
+<p><strong>Purpose</strong>: Provides built-in validation functions for reactive forms. Ensures data integrity and user input validation. <strong>Use this service when you need to validate user input, ensure data quality, implement business rules, provide user feedback, or prevent invalid data submission to your backend.</strong></p>
+<p>• <strong>required</strong>: Validates that control has a value</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to ensure users fill in mandatory fields like name, email, passwords, terms acceptance, or any critical form data that cannot be empty</li>
+<li>Parameters: <code>control: AbstractControl</code></li>
+<li>Returns: <code>ValidationErrors | null</code></li>
+<li>Example: <code>Validators.required</code></li>
+</ul>
+<p>• <strong>minLength()</strong>: Validates minimum string length</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to enforce password security requirements, ensure meaningful comments, validate proper names, ensure search terms are substantial, or implement minimum content requirements</li>
+<li>Parameters: <code>minLength: number</code></li>
+<li>Returns: <code>ValidatorFn</code></li>
+<li>Example: <code>Validators.minLength(3)</code></li>
+</ul>
+<p>• <strong>maxLength()</strong>: Validates maximum string length</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to limit tweet-like messages, enforce database field constraints, prevent spam submissions, limit comment lengths, or ensure data fits database schema requirements</li>
+<li>Parameters: <code>maxLength: number</code></li>
+<li>Returns: <code>ValidatorFn</code></li>
+<li>Example: <code>Validators.maxLength(50)</code></li>
+</ul>
+<p>• <strong>email</strong>: Validates email format</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to validate email addresses for user registration, contact forms, newsletter subscriptions, login forms, or any email-based communication features</li>
+<li>Parameters: <code>control: AbstractControl</code></li>
+<li>Returns: <code>ValidationErrors | null</code></li>
+<li>Example: <code>Validators.email</code></li>
+</ul>
+<p>• <strong>pattern()</strong>: Validates against regex pattern</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to validate phone numbers, postal codes, credit card numbers, social security numbers, custom formats, or any specific text patterns required by your business logic</li>
+<li>Parameters: <code>pattern: string | RegExp</code></li>
+<li>Returns: <code>ValidatorFn</code></li>
+<li>Example: <code>Validators.pattern(/^[0-9]+$/)</code></li>
+</ul>
+<p>• <strong>min()</strong>: Validates minimum numeric value</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to enforce age restrictions, validate quantities, ensure positive numbers, set minimum prices, or implement business rules with numeric constraints</li>
+<li>Parameters: <code>min: number</code></li>
+<li>Returns: <code>ValidatorFn</code></li>
+<li>Example: <code>Validators.min(18)</code></li>
+</ul>
+<p>• <strong>max()</strong>: Validates maximum numeric value</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to limit age ranges, restrict quantities, enforce maximum prices, limit numeric inputs, or implement upper bounds in your business logic</li>
+<li>Parameters: <code>max: number</code></li>
+<li>Returns: <code>ValidatorFn</code></li>
+<li>Example: <code>Validators.max(65)</code></li>
+</ul>
+<p>• <strong>compose()</strong>: Combines multiple validators</p>
+<ul>
+<li><strong>Use this validator when</strong>: You need to apply multiple validation rules to the same field, create complex validation logic, combine built-in and custom validators, or implement comprehensive field validation</li>
+<li>Parameters: <code>validators: ValidatorFn[]</code></li>
+<li>Returns: <code>ValidatorFn</code></li>
+<li>Example: <code>Validators.compose([Validators.required, Validators.email])</code></li>
+</ul>
+<h2 id="dependency-injection-services">Dependency Injection Services</h2>
+<h3 id="9-injector">9. Injector</h3>
+<p><strong>Purpose</strong>: Core dependency injection service that resolves and provides instances of services. Used for dynamic service resolution and testing. <strong>Use this service when you need to resolve services dynamically, implement factory patterns, create plugin architectures, handle conditional service injection, or build testing utilities.</strong></p>
+<p>• <strong>get()</strong>: Retrieves service instance</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to resolve services at runtime, implement conditional service loading, create factory services, handle optional dependencies, or build dynamic plugin systems</li>
+<li>Parameters: <code>token: any</code>, <code>notFoundValue?: any</code></li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>const service = this.injector.get(MyService)</code></li>
+</ul>
+<p>• <strong>create()</strong>: Creates child injector</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create isolated service scopes, implement feature modules with specific dependencies, create testing environments, or build micro-frontend architectures</li>
+<li>Parameters: <code>providers: Provider[]</code>, <code>parent?: Injector</code></li>
+<li>Returns: <code>Injector</code></li>
+<li>Example: <code>const childInjector = Injector.create({ providers: [] })</code></li>
+</ul>
+<h3 id="10-elementref">10. ElementRef</h3>
+<p><strong>Purpose</strong>: Provides access to the native DOM element. Used when direct DOM manipulation is necessary, though should be used sparingly. <strong>Use this service when you need to integrate third-party libraries, implement custom directives, focus elements programmatically, or perform DOM operations that Angular doesn't provide built-in solutions for.</strong></p>
+<p>• <strong>nativeElement</strong>: Reference to native DOM element</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to focus inputs after validation errors, integrate jQuery plugins, implement custom scroll behaviors, measure element dimensions, or interact with non-Angular JavaScript libraries</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>this.elementRef.nativeElement.focus()</code></li>
+</ul>
+<h3 id="11-renderer2">11. Renderer2</h3>
+<p><strong>Purpose</strong>: Provides safe methods for DOM manipulation. Preferred over direct DOM access for security and cross-platform compatibility. <strong>Use this service when you need to manipulate DOM elements safely, create dynamic content, implement custom directives, handle server-side rendering, or build platform-agnostic DOM operations.</strong></p>
+<p>• <strong>createElement()</strong>: Creates DOM element</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to build dynamic UI components, create custom overlays, implement drag-and-drop interfaces, generate dynamic content, or build components that create DOM elements programmatically</li>
+<li>Parameters: <code>name: string</code>, <code>namespace?: string</code></li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>const div = this.renderer.createElement('div')</code></li>
+</ul>
+<p>• <strong>createText()</strong>: Creates text node</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create dynamic text content, build custom text rendering, implement text manipulation features, or create DOM text nodes safely</li>
+<li>Parameters: <code>value: string</code></li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>const text = this.renderer.createText('Hello')</code></li>
+</ul>
+<p>• <strong>appendChild()</strong>: Appends child element</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to build dynamic layouts, create custom components, implement drag-and-drop functionality, add elements to containers, or build dynamic DOM structures</li>
+<li>Parameters: <code>parent: any</code>, <code>newChild: any</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.appendChild(parent, child)</code></li>
+</ul>
+<p>• <strong>removeChild()</strong>: Removes child element</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to clean up dynamic content, implement element removal animations, handle component destruction, or remove elements from the DOM safely</li>
+<li>Parameters: <code>parent: any</code>, <code>oldChild: any</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.removeChild(parent, child)</code></li>
+</ul>
+<p>• <strong>setAttribute()</strong>: Sets element attribute</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to set accessibility attributes, update data attributes, configure element properties, implement custom attributes, or handle dynamic attribute assignment</li>
+<li>Parameters: <code>el: any</code>, <code>name: string</code>, <code>value: string</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.setAttribute(el, 'class', 'active')</code></li>
+</ul>
+<p>• <strong>removeAttribute()</strong>: Removes element attribute</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to clean up temporary attributes, remove disabled states, clear data attributes, handle dynamic attribute removal, or reset element properties</li>
+<li>Parameters: <code>el: any</code>, <code>name: string</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.removeAttribute(el, 'disabled')</code></li>
+</ul>
+<p>• <strong>addClass()</strong>: Adds CSS class</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement dynamic styling, show/hide elements, add hover effects, implement state-based styling, or apply conditional CSS classes</li>
+<li>Parameters: <code>el: any</code>, <code>name: string</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.addClass(el, 'highlight')</code></li>
+</ul>
+<p>• <strong>removeClass()</strong>: Removes CSS class</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to remove temporary styling, clear error states, reset element appearance, handle dynamic class removal, or clean up CSS classes</li>
+<li>Parameters: <code>el: any</code>, <code>name: string</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.removeClass(el, 'active')</code></li>
+</ul>
+<p>• <strong>setStyle()</strong>: Sets element style</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement dynamic animations, adjust element dimensions, apply conditional styling, handle responsive adjustments, or set inline styles programmatically</li>
+<li>Parameters: <code>el: any</code>, <code>style: string</code>, <code>value: any</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.setStyle(el, 'color', 'red')</code></li>
+</ul>
+<p>• <strong>removeStyle()</strong>: Removes element style</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to reset element styles, clear temporary styling, remove inline styles, handle style cleanup, or restore default styling</li>
+<li>Parameters: <code>el: any</code>, <code>style: string</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.renderer.removeStyle(el, 'color')</code></li>
+</ul>
+<p>• <strong>listen()</strong>: Adds event listener</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to handle custom events, implement event delegation, listen to non-Angular events, build custom interactions, or integrate with third-party event systems</li>
+<li>Parameters: <code>target: any</code>, <code>eventName: string</code>, <code>callback: Function</code></li>
+<li>Returns: <code>Function</code> (unlisten function)</li>
+<li>Example: <code>const unlisten = this.renderer.listen(el, 'click', () =&gt; {})</code></li>
+</ul>
+<h2 id="change-detection-services">Change Detection Services</h2>
+<h3 id="12-changedetectorref">12. ChangeDetectorRef</h3>
+<p><strong>Purpose</strong>: Controls change detection for a component. Allows manual triggering of change detection and optimization of performance. <strong>Use this service when you need to optimize performance in large applications, handle asynchronous operations, implement OnPush change detection strategies, or manually control when Angular checks for changes.</strong></p>
+<p>• <strong>detectChanges()</strong>: Triggers change detection for component</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to update UI after asynchronous operations, force updates after manual data changes, refresh components after external library modifications, or handle immediate UI updates</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cdr.detectChanges()</code></li>
+</ul>
+<p>• <strong>markForCheck()</strong>: Marks component for check in next change detection cycle</p>
+<ul>
+<li><strong>Use this method when</strong>: You're using OnPush change detection and need to schedule updates, handling observable data changes, implementing efficient update patterns, or optimizing performance-critical components</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cdr.markForCheck()</code></li>
+</ul>
+<p>• <strong>detach()</strong>: Detaches component from change detection tree</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to optimize performance in rarely-updated components, implement manual update control, handle components with expensive rendering, or pause updates temporarily</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cdr.detach()</code></li>
+</ul>
+<p>• <strong>reattach()</strong>: Reattaches component to change detection tree</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to resume automatic updates after detaching, restore normal change detection behavior, re-enable component updates after optimization periods</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cdr.reattach()</code></li>
+</ul>
+<p>• <strong>checkNoChanges()</strong>: Checks that no changes occurred (dev mode only)</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to debug change detection issues, verify component stability, test change detection optimization, or ensure proper update patterns in development</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cdr.checkNoChanges()</code></li>
+</ul>
+<h3 id="13-applicationref">13. ApplicationRef</h3>
+<p><strong>Purpose</strong>: Provides access to the Angular application instance. Used for bootstrapping, change detection control, and application lifecycle management. <strong>Use this service when you need to control the entire application lifecycle, implement custom bootstrapping, manage global change detection, or integrate Angular with non-Angular code.</strong></p>
+<p>• <strong>bootstrap()</strong>: Bootstraps component</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to dynamically bootstrap components, implement micro-frontend architectures, create multiple app instances, or handle custom application initialization</li>
+<li>Parameters: <code>componentOrFactory: ComponentFactory&lt;C&gt; | Type&lt;C&gt;</code></li>
+<li>Returns: <code>ComponentRef&lt;C&gt;</code></li>
+<li>Example: <code>this.appRef.bootstrap(AppComponent)</code></li>
+</ul>
+<p>• <strong>tick()</strong>: Triggers change detection across entire application</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to force global UI updates, integrate with external libraries that modify data, handle asynchronous operations that bypass Angular's zone, or implement custom change detection cycles</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.appRef.tick()</code></li>
+</ul>
+<p>• <strong>attachView()</strong>: Attaches view to application</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to add dynamically created views, implement custom view management, integrate with external rendering systems, or manage view lifecycles manually</li>
+<li>Parameters: <code>viewRef: ViewRef</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.appRef.attachView(viewRef)</code></li>
+</ul>
+<p>• <strong>detachView()</strong>: Detaches view from application</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to remove views without destroying them, implement view pooling, manage memory usage, or handle custom view lifecycle management</li>
+<li>Parameters: <code>viewRef: ViewRef</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.appRef.detachView(viewRef)</code></li>
+</ul>
+<h2 id="component-services">Component Services</h2>
+<h3 id="14-viewcontainerref">14. ViewContainerRef</h3>
+<p><strong>Purpose</strong>: Represents a container where views can be attached. Essential for dynamic component creation and structural directives. <strong>Use this service when you need to create modal dialogs, implement dynamic forms, build plugin systems, create wizard interfaces, or load components based on user configuration.</strong></p>
+<p>• <strong>createComponent()</strong>: Creates component dynamically</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create modal popups, load components based on user permissions, implement dashboard widgets, create dynamic forms, or build plugin architectures</li>
+<li>Parameters: <code>componentFactory: ComponentFactory&lt;C&gt;</code></li>
+<li>Returns: <code>ComponentRef&lt;C&gt;</code></li>
+<li>Example: <code>const compRef = this.vcr.createComponent(factory)</code></li>
+</ul>
+<p>• <strong>createEmbeddedView()</strong>: Creates embedded view from template</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to repeat template content, implement custom structural directives, create dynamic lists, build template-based widgets, or handle conditional template rendering</li>
+<li>Parameters: <code>templateRef: TemplateRef&lt;C&gt;</code>, <code>context?: C</code></li>
+<li>Returns: <code>EmbeddedViewRef&lt;C&gt;</code></li>
+<li>Example: <code>const viewRef = this.vcr.createEmbeddedView(template)</code></li>
+</ul>
+<p>• <strong>insert()</strong>: Inserts view at specific index</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement drag-and-drop reordering, insert content at specific positions, manage dynamic content order, or handle list manipulation with precise positioning</li>
+<li>Parameters: <code>viewRef: ViewRef</code>, <code>index?: number</code></li>
+<li>Returns: <code>ViewRef</code></li>
+<li>Example: <code>this.vcr.insert(viewRef, 0)</code></li>
+</ul>
+<p>• <strong>move()</strong>: Moves view to different position</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement sortable lists, reorder dynamic content, handle drag-and-drop functionality, or manage content positioning dynamically</li>
+<li>Parameters: <code>viewRef: ViewRef</code>, <code>currentIndex: number</code></li>
+<li>Returns: <code>ViewRef</code></li>
+<li>Example: <code>this.vcr.move(viewRef, 2)</code></li>
+</ul>
+<p>• <strong>remove()</strong>: Removes view at index</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to delete list items, close modal dialogs, remove dynamic content, handle cleanup operations, or manage view lifecycle</li>
+<li>Parameters: <code>index?: number</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.vcr.remove(0)</code></li>
+</ul>
+<p>• <strong>clear()</strong>: Removes all views</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to reset dynamic content, clear all modal dialogs, refresh container contents, handle bulk cleanup, or prepare containers for new content</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.vcr.clear()</code></li>
+</ul>
+<h3 id="15-componentfactoryresolver">15. ComponentFactoryResolver</h3>
+<p><strong>Purpose</strong>: Resolves component factories for dynamic component creation. Required for creating components programmatically. <strong>Use this service when you need to create components at runtime, build plugin systems, implement dynamic content loading, create modal services, or handle component creation based on configuration.</strong></p>
+<p>• <strong>resolveComponentFactory()</strong>: Resolves factory for component</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create components dynamically, implement factory patterns, build plugin architectures, create modal services, or handle runtime component instantiation</li>
+<li>Parameters: <code>component: Type&lt;T&gt;</code></li>
+<li>Returns: <code>ComponentFactory&lt;T&gt;</code></li>
+<li>Example: <code>const factory = this.resolver.resolveComponentFactory(MyComponent)</code></li>
+</ul>
+<h3 id="16-templateref">16. TemplateRef</h3>
+<p><strong>Purpose</strong>: Represents an embedded template that can be used to instantiate embedded views. Used with structural directives and dynamic content. <strong>Use this service when you need to create reusable templates, implement custom structural directives, build template-based components, or handle dynamic template rendering.</strong></p>
+<p>• <strong>createEmbeddedView()</strong>: Creates view from template</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to render templates with different contexts, implement custom ngFor-like directives, create template-based widgets, or handle conditional template rendering</li>
+<li>Parameters: <code>context?: any</code></li>
+<li>Returns: <code>EmbeddedViewRef&lt;any&gt;</code></li>
+<li>Example: <code>const view = this.templateRef.createEmbeddedView(context)</code></li>
+</ul>
+<p>• <strong>elementRef</strong>: Gets element reference</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to access the template's DOM element, implement template-based DOM manipulation, handle template positioning, or integrate with third-party libraries</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>ElementRef</code></li>
+<li>Example: <code>const element = this.templateRef.elementRef</code></li>
+</ul>
+<h2 id="platform-services">Platform Services</h2>
+<h3 id="17-platformlocation">17. PlatformLocation</h3>
+<p><strong>Purpose</strong>: Provides low-level access to browser location API. Abstracts platform-specific location implementations. <strong>Use this service when you need to work directly with browser navigation events, build custom routing logic, handle deep linking, manage URL changes manually, or create location-aware components that need to respond to navigation without using Angular Router.</strong></p>
+<p>• <strong>getBaseHrefFromDOM()</strong>: Gets base href from DOM</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to determine the application's base URL for constructing absolute URLs, building dynamic links, configuring API endpoints relative to your app's deployment path, or handling applications deployed in subdirectories</li>
+<li>Parameters: None</li>
+<li>Returns: <code>string</code></li>
+<li>Example: <code>const baseHref = this.platformLocation.getBaseHrefFromDOM()</code></li>
+</ul>
+<p>• <strong>onPopState()</strong>: Listens to popstate events</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to detect browser back/forward button clicks, implement custom navigation tracking, handle single-page application state changes, sync application state with browser history, or build analytics for navigation patterns</li>
+<li>Parameters: <code>fn: LocationChangeListener</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.platformLocation.onPopState(() =&gt; {})</code></li>
+</ul>
+<p>• <strong>onHashChange()</strong>: Listens to hashchange events</p>
+<ul>
+<li><strong>Use this method when</strong>: You're building hash-based routing, implementing smooth scrolling to page sections, creating tabbed interfaces with URL fragments, handling anchor link navigation, or building single-page apps with hash-based state management</li>
+<li>Parameters: <code>fn: LocationChangeListener</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.platformLocation.onHashChange(() =&gt; {})</code></li>
+</ul>
+<p>• <strong>pathname</strong>: Current pathname</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to determine which page the user is on, implement page-specific logic, track user navigation for analytics, conditionally show/hide elements based on current path, or build breadcrumb navigation</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>string</code></li>
+<li>Example: <code>const path = this.platformLocation.pathname</code></li>
+</ul>
+<p>• <strong>search</strong>: Current search string</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to read URL query parameters manually, implement custom search functionality, track marketing campaign parameters, handle complex filtering systems, or parse URL parameters for API calls</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>string</code></li>
+<li>Example: <code>const search = this.platformLocation.search</code></li>
+</ul>
+<p>• <strong>hash</strong>: Current hash</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to scroll to specific page sections, implement tabbed navigation with URL fragments, handle anchor links programmatically, create deep-linkable single-page application states, or build interactive tutorials with step navigation</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>string</code></li>
+<li>Example: <code>const hash = this.platformLocation.hash</code></li>
+</ul>
+<h3 id="18-document">18. DOCUMENT</h3>
+<p><strong>Purpose</strong>: Injection token for the document object. Provides safe access to the document in different platforms. <strong>Use this service when you need to manipulate DOM elements directly, access browser APIs safely, work with third-party JavaScript libraries, implement custom event handling, or perform operations that require direct document access in a server-side rendering compatible way.</strong></p>
+<p>• Direct access to document methods and properties</p>
+<ul>
+<li><strong>Use this when</strong>: You need to dynamically add/remove DOM elements, integrate third-party widgets, implement custom focus management, access browser APIs like localStorage, manipulate meta tags for SEO, or handle complex DOM operations that can't be done through Angular's template system</li>
+<li>Parameters: Varies by method</li>
+<li>Returns: Varies by method</li>
+<li>Example: <code>this.document.getElementById('myElement')</code></li>
+</ul>
+<h3 id="19-platform">19. Platform</h3>
+<p><strong>Purpose</strong>: Provides information about the current platform (browser, server, mobile, etc.). Used for platform-specific code execution. <strong>Use this service when you need to write code that behaves differently in browser vs server environments, implement progressive enhancement, handle server-side rendering compatibility, or conditionally load platform-specific features.</strong></p>
+<p>• <strong>isBrowser</strong>: Checks if running in browser</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to access browser-only APIs like localStorage, implement client-side only features, conditionally load browser-specific code, handle DOM manipulation safely, or implement features that only work in the browser environment</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>boolean</code></li>
+<li>Example: <code>if (this.platform.isBrowser)</code></li>
+</ul>
+<p>• <strong>isServer</strong>: Checks if running on server</p>
+<ul>
+<li><strong>Use this property when</strong>: You're implementing server-side rendering, need to skip browser-only code during SSR, handle SEO optimizations, implement different data fetching strategies for server vs client, or manage server-specific operations</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>boolean</code></li>
+<li>Example: <code>if (this.platform.isServer)</code></li>
+</ul>
+<h2 id="animation-services">Animation Services</h2>
+<h3 id="20-animationbuilder">20. AnimationBuilder</h3>
+<p><strong>Purpose</strong>: Programmatically creates animations. Allows dynamic animation creation and control outside of component animations. <strong>Use this service when you need to create animations dynamically based on user input, build complex interactive animations, animate elements based on runtime conditions, create reusable animation utilities, or implement animations that can't be defined statically in component metadata.</strong></p>
+<p>• <strong>build()</strong>: Builds animation from metadata</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to create loading animations based on data size, build interactive hover effects, animate chart transitions, create dynamic progress indicators, implement gesture-based animations, or build animations that change based on user preferences or application state</li>
+<li>Parameters: <code>animation: AnimationMetadata | AnimationMetadata[]</code></li>
+<li>Returns: <code>AnimationFactory</code></li>
+<li>Example: <code>const factory = this.builder.build([style({opacity: 0})])</code></li>
+</ul>
+<h3 id="21-animationplayer">21. AnimationPlayer</h3>
+<p><strong>Purpose</strong>: Controls animation playback. Provides methods to play, pause, and manipulate animations. <strong>Use this service when you need fine-grained control over animation timing, implement interactive animations that respond to user actions, create animation sequences, build animation-based games, or manage complex animation states.</strong></p>
+<p>• <strong>play()</strong>: Starts animation</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to trigger animations on user click, start loading animations, begin entrance animations for new content, initiate interactive element animations, or start timed animation sequences</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.play()</code></li>
+</ul>
+<p>• <strong>pause()</strong>: Pauses animation</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement pause/resume functionality for presentations, handle user interruptions gracefully, create interactive animation controls, implement hover-to-pause effects, or manage animation performance by pausing off-screen animations</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.pause()</code></li>
+</ul>
+<p>• <strong>reset()</strong>: Resets animation to beginning</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to restart animations from the beginning, implement replay functionality, reset element states after failed animations, create looping animations with custom timing, or handle animation error states</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.reset()</code></li>
+</ul>
+<p>• <strong>restart()</strong>: Restarts animation from beginning</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to replay animations on user request, implement retry mechanisms for failed states, create interactive demos with restart functionality, handle animation loops with custom logic, or reset and replay based on changing conditions</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.restart()</code></li>
+</ul>
+<p>• <strong>finish()</strong>: Completes animation immediately</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to skip to final animation state, implement fast-forward functionality, handle impatient users who want to skip animations, complete animations when navigating away from pages, or implement accessibility features for users who prefer reduced motion</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.finish()</code></li>
+</ul>
+<p>• <strong>destroy()</strong>: Destroys animation player</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to clean up animations to prevent memory leaks, remove animations when components are destroyed, implement proper cleanup in single-page applications, manage animation resources efficiently, or handle dynamic animation creation and removal</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.destroy()</code></li>
+</ul>
+<p>• <strong>onDone()</strong>: Callback when animation completes</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to chain animations together, trigger follow-up actions after animations complete, update UI state after transitions, implement animation-based workflows, or provide user feedback when long animations finish</li>
+<li>Parameters: <code>fn: () =&gt; void</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.onDone(() =&gt; console.log('Done'))</code></li>
+</ul>
+<p>• <strong>onStart()</strong>: Callback when animation starts</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to disable UI interactions during animations, update loading states, trigger parallel animations, log animation events for analytics, or synchronize other operations with animation start</li>
+<li>Parameters: <code>fn: () =&gt; void</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>player.onStart(() =&gt; console.log('Started'))</code></li>
+</ul>
+<h2 id="testing-services">Testing Services</h2>
+<h3 id="22-testbed">22. TestBed</h3>
+<p><strong>Purpose</strong>: Configures and creates testing module for unit tests. Primary service for Angular testing setup and dependency injection in tests. <strong>Use this service when you're writing unit tests for Angular components, testing component interactions, mocking dependencies for isolated testing, setting up test environments, or creating comprehensive test suites for Angular applications.</strong></p>
+<p>• <strong>configureTestingModule()</strong>: Configures testing module</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to set up test dependencies, mock services for testing, configure test components, import required modules for tests, provide test-specific configurations, or create isolated test environments for component testing</li>
+<li>Parameters: <code>moduleDef: TestModuleMetadata</code></li>
+<li>Returns: <code>TestBedStatic</code></li>
+<li>Example: <code>TestBed.configureTestingModule({ declarations: [Component] })</code></li>
+</ul>
+<p>• <strong>createComponent()</strong>: Creates component for testing</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to test component rendering, verify component behavior, test user interactions, check component lifecycle hooks, validate template bindings, or create component instances for comprehensive testing</li>
+<li>Parameters: <code>component: Type&lt;T&gt;</code></li>
+<li>Returns: <code>ComponentFixture&lt;T&gt;</code></li>
+<li>Example: <code>const fixture = TestBed.createComponent(MyComponent)</code></li>
+</ul>
+<p>• <strong>inject()</strong>: Injects service in test</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to test service methods, mock service dependencies, verify service interactions, test service state changes, validate service behavior in isolation, or access services within your test methods</li>
+<li>Parameters: <code>token: any</code>, <code>notFoundValue?: any</code></li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>const service = TestBed.inject(MyService)</code></li>
+</ul>
+<p>• <strong>get()</strong>: Gets service instance (deprecated, use inject)</p>
+<ul>
+<li><strong>Use this method when</strong>: Working with legacy test code that hasn't been updated to use the newer inject method, maintaining backward compatibility in existing test suites, or when dealing with older Angular versions</li>
+<li>Parameters: <code>token: any</code>, <code>notFoundValue?: any</code></li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>const service = TestBed.get(MyService)</code></li>
+</ul>
+<p>• <strong>compileComponents()</strong>: Compiles components asynchronously</p>
+<ul>
+<li><strong>Use this method when</strong>: You're testing components with external templates, working with lazy-loaded modules in tests, testing components that have async template compilation, dealing with external stylesheets in tests, or ensuring all component templates are fully compiled before testing</li>
+<li>Parameters: None</li>
+<li>Returns: <code>Promise&lt;any&gt;</code></li>
+<li>Example: <code>await TestBed.compileComponents()</code></li>
+</ul>
+<h3 id="23-componentfixture">23. ComponentFixture</h3>
+<p><strong>Purpose</strong>: Wrapper around component instance for testing. Provides access to component, DOM, and change detection control. <strong>Use this service when you need to test component rendering, trigger change detection manually, access component properties for testing, simulate user interactions, or verify DOM changes in your component tests.</strong></p>
+<p>• <strong>detectChanges()</strong>: Triggers change detection</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to update the DOM after changing component properties, test binding updates, verify template changes, simulate Angular's change detection cycle, or ensure your test assertions see the latest component state</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>fixture.detectChanges()</code></li>
+</ul>
+<p>• <strong>whenStable()</strong>: Promise that resolves when stable</p>
+<ul>
+<li><strong>Use this method when</strong>: You're testing async operations, waiting for HTTP requests to complete, testing components with async validators, handling setTimeout/setInterval in tests, or ensuring all async operations finish before making assertions</li>
+<li>Parameters: None</li>
+<li>Returns: <code>Promise&lt;any&gt;</code></li>
+<li>Example: <code>await fixture.whenStable()</code></li>
+</ul>
+<p>• <strong>destroy()</strong>: Destroys component</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to test component cleanup, verify ngOnDestroy behavior, test resource deallocation, simulate component removal, or ensure proper cleanup prevents memory leaks in your components</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>fixture.destroy()</code></li>
+</ul>
+<p>• <strong>componentInstance</strong>: Component instance</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to access component properties directly, test component methods, verify component state changes, set input properties for testing, or interact with the component programmatically in tests</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>T</code></li>
+<li>Example: <code>const component = fixture.componentInstance</code></li>
+</ul>
+<p>• <strong>debugElement</strong>: Debug element wrapper</p>
+<ul>
+<li><strong>Use this property when</strong>: You need to query DOM elements in tests, simulate user events, access element properties, test directive behavior, navigate the component's DOM tree, or use Angular's testing utilities for element interaction</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>DebugElement</code></li>
+<li>Example: <code>const debug = fixture.debugElement</code></li>
+</ul>
+<p>• <strong>nativeElement</strong>: Native DOM element</p>
+<ul>
+<li><strong>Use this property when</strong>: You need direct access to the actual DOM element, test native DOM properties, interact with third-party libraries that expect DOM elements, perform low-level DOM testing, or verify actual HTML output</li>
+<li>Parameters: None (property)</li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>const element = fixture.nativeElement</code></li>
+</ul>
+<h2 id="route-guards">Route Guards</h2>
+<h3 id="24-canactivate">24. CanActivate</h3>
+<p><strong>Purpose</strong>: Interface for route activation guards. Determines if a route can be activated based on custom logic like authentication. <strong>Use this interface when you need to protect routes from unauthorized access, implement authentication checks, restrict access based on user roles, validate user permissions before route activation, or create conditional navigation based on application state.</strong></p>
+<p>• <strong>canActivate()</strong>: Determines if route can be activated</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to check if users are logged in before accessing protected pages, verify user roles for admin sections, validate user permissions for specific features, implement subscription-based access control, check if required data is available, or redirect users based on their authentication status</li>
+<li>Parameters: <code>route: ActivatedRouteSnapshot</code>, <code>state: RouterStateSnapshot</code></li>
+<li>Returns: <code>Observable&lt;boolean&gt; | Promise&lt;boolean&gt; | boolean</code></li>
+<li>Example: <code>canActivate(route, state) { return this.auth.isLoggedIn(); }</code></li>
+</ul>
+<h3 id="25-candeactivate">25. CanDeactivate</h3>
+<p><strong>Purpose</strong>: Interface for route deactivation guards. Prevents navigation away from route based on custom logic like unsaved changes. <strong>Use this interface when you need to prevent users from losing unsaved work, implement confirmation dialogs before navigation, save user progress automatically, warn about pending operations, or ensure data integrity when navigating away from forms.</strong></p>
+<p>• <strong>canDeactivate()</strong>: Determines if route can be deactivated</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to warn users about unsaved form changes, confirm navigation away from editing screens, prevent loss of work in progress, implement auto-save functionality, check for pending uploads or operations, or ensure users don't accidentally lose important data</li>
+<li>Parameters: <code>component: T</code>, <code>currentRoute: ActivatedRouteSnapshot</code>, <code>currentState: RouterStateSnapshot</code>, <code>nextState?: RouterStateSnapshot</code></li>
+<li>Returns: <code>Observable&lt;boolean&gt; | Promise&lt;boolean&gt; | boolean</code></li>
+<li>Example: <code>canDeactivate(component) { return component.canExit(); }</code></li>
+</ul>
+<h3 id="26-canload">26. CanLoad</h3>
+<p><strong>Purpose</strong>: Interface for module loading guards. Controls whether a lazy-loaded module can be loaded. <strong>Use this interface when you need to prevent unauthorized access to entire feature modules, implement role-based module loading, control resource loading based on user permissions, implement subscription-based feature access, or optimize bundle loading based on user capabilities.</strong></p>
+<p>• <strong>canLoad()</strong>: Determines if module can be loaded</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to prevent loading admin modules for regular users, implement feature toggles that control module access, restrict premium features to paid users, prevent loading modules based on device capabilities, or implement conditional module loading based on user roles</li>
+<li>Parameters: <code>route: Route</code>, <code>segments: UrlSegment[]</code></li>
+<li>Returns: <code>Observable&lt;boolean&gt; | Promise&lt;boolean&gt; | boolean</code></li>
+<li>Example: <code>canLoad(route) { return this.auth.hasPermission(route.data.role); }</code></li>
+</ul>
+<h3 id="27-resolve">27. Resolve</h3>
+<p><strong>Purpose</strong>: Interface for route data resolution. Pre-loads data before route activation to ensure component has required data. <strong>Use this interface when you need to fetch data before components load, ensure components have required data available, optimize user experience by pre-loading content, handle data dependencies for route components, or implement loading states while fetching route data.</strong></p>
+<p>• <strong>resolve()</strong>: Resolves data for route</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to load user profiles before profile pages render, fetch product details before product pages load, get configuration data required by components, pre-load dropdown options for forms, ensure data dependencies are met, or implement smooth page transitions with pre-loaded content</li>
+<li>Parameters: <code>route: ActivatedRouteSnapshot</code>, <code>state: RouterStateSnapshot</code></li>
+<li>Returns: <code>Observable&lt;T&gt; | Promise&lt;T&gt; | T</code></li>
+<li>Example: <code>resolve(route) { return this.api.getUser(route.params.id); }</code></li>
+</ul>
+<h2 id="http-interceptors">HTTP Interceptors</h2>
+<h3 id="28-httpinterceptor">28. HttpInterceptor</h3>
+<p><strong>Purpose</strong>: Interface for HTTP request/response interception. Allows modification of HTTP requests and responses globally across the application. <strong>Use this interface when you need to add authentication headers to all requests, implement global error handling, add loading indicators for HTTP calls, implement request/response logging, transform request/response data globally, or add retry logic for failed requests.</strong></p>
+<p>• <strong>intercept()</strong>: Intercepts HTTP requests</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to add authentication tokens to all API calls, implement global error handling for HTTP errors, add loading spinners during HTTP requests, log all API calls for debugging, transform request headers globally, implement request retry logic, or add custom headers required by your API</li>
+<li>Parameters: <code>req: HttpRequest&lt;any&gt;</code>, <code>next: HttpHandler</code></li>
+<li>Returns: <code>Observable&lt;HttpEvent&lt;any&gt;&gt;</code></li>
+<li>Example: <code>intercept(req, next) { return next.handle(req.clone({ setHeaders: { 'Auth': token } })); }</code></li>
+</ul>
+<h2 id="angular-cdk-services">Angular CDK Services</h2>
+<h3 id="29-overlay">29. Overlay</h3>
+<p><strong>Purpose</strong>: Service for creating overlay panels. Used for modals, tooltips, dropdowns, and other floating content. <strong>Use this service when you need to create modal dialogs, implement custom tooltips, build dropdown menus, create floating panels, implement popover components, build complex UI overlays, or create context menus that appear above other content.</strong></p>
+<p>• <strong>create()</strong>: Creates overlay</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to display modal dialogs over existing content, create custom tooltips that appear on hover, build dropdown menus that float above other elements, implement context menus, create floating action buttons, or build any UI component that needs to appear above the normal document flow</li>
+<li>Parameters: <code>config?: OverlayConfig</code></li>
+<li>Returns: <code>OverlayRef</code></li>
+<li>Example: <code>const overlayRef = this.overlay.create({ hasBackdrop: true })</code></li>
+</ul>
+<p>• <strong>position()</strong>: Gets position builder</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to position overlays relative to trigger elements, implement smart positioning that adjusts based on viewport, create tooltips that appear above or below elements based on available space, build dropdowns that reposition themselves to stay visible, or implement complex overlay positioning logic</li>
+<li>Parameters: None</li>
+<li>Returns: <code>OverlayPositionBuilder</code></li>
+<li>Example: <code>const position = this.overlay.position()</code></li>
+</ul>
+<h3 id="30-breakpointobserver">30. BreakpointObserver</h3>
+<p><strong>Purpose</strong>: Observes CSS breakpoint changes. Useful for responsive design and adaptive layouts. <strong>Use this service when you need to adapt component behavior based on screen size, implement responsive navigation menus, show/hide elements based on device size, load different content for mobile vs desktop, optimize performance by rendering different components for different screen sizes, or create adaptive user interfaces.</strong></p>
+<p>• <strong>observe()</strong>: Observes breakpoint changes</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to switch between mobile and desktop layouts, implement responsive navigation that changes based on screen size, show/hide sidebar components based on viewport width, load different image sizes for different devices, or adapt component behavior for tablet vs mobile vs desktop experiences</li>
+<li>Parameters: <code>value: string | string[]</code></li>
+<li>Returns: <code>Observable&lt;BreakpointState&gt;</code></li>
+<li>Example: <code>this.breakpoints.observe('(max-width: 768px)')</code></li>
+</ul>
+<p>• <strong>isMatched()</strong>: Checks if breakpoint matches</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to immediately check current breakpoint state, implement conditional rendering based on screen size, make one-time decisions about component initialization based on device size, or perform initial setup that depends on viewport dimensions</li>
+<li>Parameters: <code>value: string | string[]</code></li>
+<li>Returns: <code>boolean</code></li>
+<li>Example: <code>const isMobile = this.breakpoints.isMatched('(max-width: 768px)')</code></li>
+</ul>
+<h3 id="31-portal">31. Portal</h3>
+<p><strong>Purpose</strong>: Abstracts UI content that can be dynamically rendered. Used for flexible content projection and component portals. <strong>Use this service when you need to dynamically render components in different locations, create reusable content that can be rendered anywhere, implement modal systems with dynamic content, build flexible layouts with interchangeable content areas, or create advanced component composition patterns.</strong></p>
+<p>• <strong>attach()</strong>: Attaches portal to outlet</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to dynamically render components in modal dialogs, create tabbed interfaces with dynamic content, implement dashboard widgets that can be moved between containers, build flexible layouts where content can be rearranged, or create advanced component composition systems</li>
+<li>Parameters: <code>portal: Portal&lt;any&gt;</code></li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>this.portalOutlet.attach(new ComponentPortal(MyComponent))</code></li>
+</ul>
+<p>• <strong>detach()</strong>: Detaches portal from outlet</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to remove dynamically rendered content, clean up components when they're no longer needed, implement component lifecycle management for dynamic content, handle memory cleanup for portal-based components, or switch between different portal contents</li>
+<li>Parameters: None</li>
+<li>Returns: <code>any</code></li>
+<li>Example: <code>this.portalOutlet.detach()</code></li>
+</ul>
+<h3 id="32-focustrap">32. FocusTrap</h3>
+<p><strong>Purpose</strong>: Traps focus within an element. Essential for accessibility in modals and dialogs. <strong>Use this service when you need to implement accessible modal dialogs, create keyboard-navigable dropdown menus, ensure focus stays within popup components, implement proper tab navigation for overlays, meet accessibility requirements for focus management, or create screen reader friendly interactive components.</strong></p>
+<p>• <strong>trapFocus()</strong>: Traps focus in element</p>
+<ul>
+<li><strong>Use this method when</strong>: You open modal dialogs and need to keep focus within the modal, create accessible dropdown menus that can be navigated with keyboard, implement popup forms that maintain proper focus flow, ensure screen readers can navigate your overlays properly, or meet WCAG accessibility guidelines for focus management</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.focusTrap.trapFocus()</code></li>
+</ul>
+<p>• <strong>releaseFocus()</strong>: Releases focus trap</p>
+<ul>
+<li><strong>Use this method when</strong>: You close modal dialogs and need to return focus to the triggering element, finish dropdown navigation and restore normal tab flow, clean up accessibility state when overlays are dismissed, ensure proper focus restoration for screen reader users, or implement proper cleanup for accessible interactive components</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.focusTrap.releaseFocus()</code></li>
+</ul>
+<h2 id="custom-service-patterns">Custom Service Patterns</h2>
+<h3 id="33-state-management-services">33. State Management Services</h3>
+<p><strong>Purpose</strong>: Custom services for managing application state. Provides centralized state management without external libraries. <strong>Use these services when you need to share data between components, maintain application-wide state, implement undo/redo functionality, synchronize data across multiple views, cache user preferences, or create reactive applications that respond to state changes.</strong></p>
+<p>• <strong>getState()</strong>: Gets current state</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to access current application state in components, implement state-dependent logic, initialize components with current state values, create derived state calculations, debug application state, or provide state to templates for rendering</li>
+<li>Parameters: None</li>
+<li>Returns: <code>Observable&lt;T&gt; | T</code></li>
+<li>Example: <code>this.stateService.getState()</code></li>
+</ul>
+<p>• <strong>setState()</strong>: Updates state</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to update user preferences, save form progress, update shopping cart contents, modify application settings, store user selections, trigger reactive updates across components, or implement state changes based on user actions</li>
+<li>Parameters: <code>state: Partial&lt;T&gt;</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.stateService.setState({ loading: true })</code></li>
+</ul>
+<p>• <strong>reset()</strong>: Resets state to initial</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement logout functionality that clears user data, reset form states to defaults, clear temporary application state, implement &quot;start over&quot; functionality, handle error states that require state reset, or clean up state when users navigate away</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.stateService.reset()</code></li>
+</ul>
+<h3 id="34-cache-services">34. Cache Services</h3>
+<p><strong>Purpose</strong>: Custom services for caching data. Improves performance by storing frequently accessed data in memory. <strong>Use these services when you need to improve application performance by avoiding redundant API calls, store frequently accessed data, implement offline functionality, reduce server load, cache user preferences, or create responsive applications that work well with slow network connections.</strong></p>
+<p>• <strong>get()</strong>: Gets cached data</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to retrieve user profiles that were previously loaded, access cached configuration data, get frequently requested product information, retrieve cached search results, access stored user preferences, or avoid making redundant API calls for the same data</li>
+<li>Parameters: <code>key: string</code></li>
+<li>Returns: <code>T | null</code></li>
+<li>Example: <code>const data = this.cache.get('users')</code></li>
+</ul>
+<p>• <strong>set()</strong>: Sets cached data</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to cache API responses to improve performance, store user preferences for quick access, cache search results for better user experience, store frequently accessed configuration data, implement offline functionality, or reduce server load by caching common requests</li>
+<li>Parameters: <code>key: string</code>, <code>value: T</code>, <code>ttl?: number</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cache.set('users', userData, 300000)</code></li>
+</ul>
+<p>• <strong>remove()</strong>: Removes cached data</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to invalidate outdated cache entries, remove sensitive data from cache, clear specific cache entries when data changes, implement cache invalidation strategies, handle data updates that require cache refresh, or clean up cache when user logs out</li>
+<li>Parameters: <code>key: string</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cache.remove('users')</code></li>
+</ul>
+<p>• <strong>clear()</strong>: Clears all cached data</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to implement logout functionality that clears all cached data, handle memory cleanup in single-page applications, clear cache when switching between different user accounts, implement &quot;refresh all data&quot; functionality, or handle error conditions that require complete cache invalidation</li>
+<li>Parameters: None</li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.cache.clear()</code></li>
+</ul>
+<h3 id="35-notification-services">35. Notification Services</h3>
+<p><strong>Purpose</strong>: Custom services for displaying notifications and alerts to users. Provides consistent notification experience. <strong>Use these services when you need to show success messages after form submissions, display error messages for failed operations, provide user feedback for long-running operations, show system status updates, implement toast notifications, or create consistent messaging throughout your application.</strong></p>
+<p>• <strong>show()</strong>: Shows notification</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to display general user messages, show custom notifications with specific styling, implement flexible notification system that supports different message types, display system status updates, show progress notifications, or create notifications with custom actions or buttons</li>
+<li>Parameters: <code>message: string</code>, <code>type?: string</code>, <code>options?: NotificationOptions</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.notification.show('Success!', 'success')</code></li>
+</ul>
+<p>• <strong>error()</strong>: Shows error notification</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to display error messages for failed API calls, show validation errors from forms, notify users about system errors, display network connectivity issues, show permission denied messages, or provide clear error feedback for failed user actions</li>
+<li>Parameters: <code>message: string</code>, <code>options?: NotificationOptions</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.notification.error('Something went wrong')</code></li>
+</ul>
+<p>• <strong>success()</strong>: Shows success notification</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to confirm successful form submissions, show completion messages for user actions, display success feedback for data saves, confirm successful file uploads, show achievement notifications, or provide positive reinforcement for completed tasks</li>
+<li>Parameters: <code>message: string</code>, <code>options?: NotificationOptions</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.notification.success('Data saved successfully')</code></li>
+</ul>
+<p>• <strong>dismiss()</strong>: Dismisses notification</p>
+<ul>
+<li><strong>Use this method when</strong>: You need to programmatically close notifications, implement auto-dismiss timers, allow users to manually close notifications, clear notifications when navigating to different pages, dismiss notifications after user acknowledges them, or clean up notifications when components are destroyed</li>
+<li>Parameters: <code>id?: string</code></li>
+<li>Returns: <code>void</code></li>
+<li>Example: <code>this.notification.dismiss(notificationId)</code></li>
+</ul>
+
+</body>
+</html>
